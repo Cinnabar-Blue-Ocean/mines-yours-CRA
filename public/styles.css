@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+}
+
+#trade-container {
+  margin: auto;
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  max-width: 1000px;
+}
+.drawer-header {
+  top: 160px !important;
+  width: 65px !important;
+  left: 0px !important;
+  background-color: #88D498 !important;
+}
+.css-jzk4qw-MuiPaper-root-MuiAppBar-root {
+  display: none !important;
+}
+
+.css-1gjgmky-MuiToggleButtonGroup-root {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.css-wjh20t-MuiPagination-ul {
+  justify-content: center;
+}
+
+.css-1pqm26d-MuiAvatar-img:hover {
+  cursor: pointer;
+}
+
+.css-jzk4qw-MuiPaper-root-MuiAppBar-root {
+  display: none !important;
+}
+
+.css-1gjgmky-MuiToggleButtonGroup-root {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.css-wjh20t-MuiPagination-ul {
+  justify-content: center;
+}
+
+.css-1pqm26d-MuiAvatar-img:hover {
+  cursor: pointer;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: green !important;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: green !important;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border: 1px solid green !important;
+}
+
+.images {
+  height: 100px;
+  width: 100px;
+}
