@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  signInWithPopup
+  signInWithPopup,
+  sendPasswordResetEmail
 } from 'firebase/auth'
 
 import { doc,collection, setDoc, getDoc} from "firebase/firestore";
@@ -46,9 +47,9 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
-  // function resetPassword(email) {
-  //   return sendPasswordResetEmail(auth,email);
-  // }
+  function resetPassword(email) {
+    return sendPasswordResetEmail(auth,email);
+  }
 
   function addData(data) {
     return setDoc(doc(db, "users", user.uid), data);
@@ -74,7 +75,7 @@ export function AuthProvider({ children }) {
     signInWithGoogle,
     signUp,
     signOutUser,
-    // resetPassword,
+    resetPassword,
     addData,
     findData
     // updateEmail,

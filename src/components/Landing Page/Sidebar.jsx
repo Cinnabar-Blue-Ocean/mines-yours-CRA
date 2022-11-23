@@ -15,6 +15,7 @@ import DiscreteSliderMarks from './LocationSlider';
 import ColorToggleButton from './TypeButtons';
 import HoverRating from './ReviewStars'
 import NativeSelectDemo from './Sorting'
+import Filter from '../../media/Filter.png'
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -56,7 +57,7 @@ export default function PersistentDrawerLeft(props) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }} >
+    <Box sx={{ display: 'flex', color: 'transparent' }} >
       <CssBaseline />
       <AppBar position="fixed" open={open} className="drawer-header">
         <Toolbar>
@@ -67,7 +68,8 @@ export default function PersistentDrawerLeft(props) {
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            <img src={Filter} width={'25px'} id="filter-icon"/>
           </IconButton>
         </Toolbar>
       </AppBar>

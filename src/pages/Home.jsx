@@ -16,8 +16,8 @@ const Home = () => {
       <LandingPage />
       <Link to='/signIn'>signIn</Link>
       <Link to={`/profile/${3142}`}>profile</Link>
-      <Link to={`/signUp`}>signUp</Link>
       <Link to={`/`}>home</Link>
+      <Link to={`/userInfo`}>userInfo</Link>
       </AnimatedPage>
     </Box>
   );
