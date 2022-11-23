@@ -1,71 +1,120 @@
-# Getting Started with Create React App
+# Mine Yours
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A barter marketplace. Connecting the community in order to make a better world
 
-## Available Scripts
+> ### Group members<br>
 
-In the project directory, you can run:
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. [Description](#description)
+2. [Technical Overview](#technical-overview)
+3. [Usage](#usage)
+4. [Requirements](#requirements)
+5. [Firestore Methods](#firestoreMethods)
+6. [Production](#production)
+7. [Testing](#testing)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Description
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Technical Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
+In order to run the project locally please read [Requirements](#requirements) section for instructions setting up a local .env and for installing dependencies. Find further instructions for setting up the project for development or production in the [Development](#development) and [Production](#production) sections.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Requirements
 
-### `npm run eject`
+Node.js - version 16.0+
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Configuring .env
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installing Dependencies
+From within the root directory:
+> 1. Run ```npm install``` to install all required dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Firestore Methods
 
-## Learn More
+### User Functions
+Get users by a specific filter
+>```getUser(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Update User Information
+> ```updateUser(user_id, data)```
+> data: data object with properties to change on the user
+> Returns document reference
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Listing Functions
+Create New Listing
+> ```postListing(name, description, photos, type, zip_code)```
+>
+> Returns document reference
 
-### Code Splitting
+Get Listing by ID
+> ```getListingById(listing_id)```
+> Returns listing data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Get listings by a specific filter
+>```getListings(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-### Analyzing the Bundle Size
+Update Listing
+> ```updateListing(listing_id, data)```
+> data: data object with properties to change on the listing
+> Returns document reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Delete Listing
+> ```deleteListing(listing_id)```
 
-### Making a Progressive Web App
+### Message Functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Get messages using a specific filter
+>```getMessages(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-### Advanced Configuration
+### Review Functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Get reviews using a specific filter
+>```getReviews(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-### Deployment
+Get reviews using a specific filter
+>```postReview(trade_id, poster_id, rating, description)```
+>
+> Returns the document reference to created review.
+> Note: poster_id must match the owner_id or receiver_id of the trade being reviewed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Trade Functions
 
-### `npm run build` fails to minify
+Get trades using a specific filter
+>```getTrades(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# mines-yours-CRA
+Post a trade
+> ```postTrade(listing_id, receiver_id, expiration_date [, start_date])```
+> Start date is optional, if not provided current time will be used
+> Returns trade_id
+
+Get trade by id
+> ```getTradeById(trade_id)```
+> Returns trade document
+
+
+## Production
+
+Creating production build:
+
+## Testing
+
+To get a coverage report from Jest use script ```npm run test-coverage```, along with the console coverage report an HTML file will be created in the coverage directory located in the projects root.
+
+To just run the jest tests in the console with no coverage report use script ```npm run test```.
