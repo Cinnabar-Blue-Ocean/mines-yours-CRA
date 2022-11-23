@@ -11,13 +11,22 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 25px;
-  max-width: 1000px;
+  max-width: 1200px;
+}
+.css-1t6e9jv-MuiCardActions-root>:not(:first-of-type) {
+  margin-left: -10px !important;
 }
 .drawer-header {
   top: 160px !important;
   width: 65px !important;
   left: 0px !important;
-  background-color: #88D498 !important;
+  background-color: transparent !important;
+}
+@media screen and (max-width: 900px) {
+  .drawer-header {
+    top: 80px !important;
+
+  }
 }
 .css-jzk4qw-MuiPaper-root-MuiAppBar-root {
   display: none !important;
