@@ -117,16 +117,23 @@ export const getTrades = async (filters) => {
 
 //get a specific listing
 export const getListingById = async (listing_id) => {
+  let docSnap = await getDoc(doc(db, 'listings', listing_id))
+  if (docSnap.exists()) {
+    return docSnap.data()
+  } else {
+    console.log('Could not find listing with id: ', listing_id)
+    return null;
+  }
   try {
-    let docSnap = await getDoc(doc(db, 'listings', listing_id))
+    let docSnap = await getDoc(doc(db, 'trades', listing_id))
     if (docSnap.exists()) {
       return docSnap.data()
     } else {
-      console.log('Could not find listing with id: ', listing_id)
+      console.log('Could not find trade with id: ', listing_id)
       return null;
     }
   } catch (err) {
-    console.log('Error getting listing: ', err.message)
+    console.log('Error getting trade: ', err.message)
   }
 }
 
