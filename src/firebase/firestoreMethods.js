@@ -335,15 +335,3 @@ export const updateListing = async (listing_id, data) => {
   const docRef = await doc(db, 'listings', listing_id)
   return await updateDoc(docRef, data)
 }
-
-
-
-//delete a listing
-export const deleteListing = async (listing_id) => {
-  return await deleteDoc(doc(db, 'listings', listing_id))
-}
-
-//delete a review
-export const deleteReview = async (review_id) => {
-  return await deleteDoc(doc(db, 'reviews', review_id));
-}
