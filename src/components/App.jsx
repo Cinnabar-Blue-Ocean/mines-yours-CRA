@@ -20,6 +20,9 @@ import {
 import Loader from '../pages/Loading.jsx'
 import { AnimatePresence } from "framer-motion";
 
+import { useAuth } from '../firebase/authMethods.js';
+import { seedUsers, seedListings } from '../seedData/seedingFunctions';
+
 
 
 const App = () => {
@@ -30,6 +33,16 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
+
+  const {signIn, user} = useAuth();
+
+  // useEffect(() => {
+  //   signIn('bobby@gmail.com', 'password123')
+  // }, []);
+
+  // useEffect(() => {
+  //   seedListings();
+  // }, []);
 
   return (
     <Box>

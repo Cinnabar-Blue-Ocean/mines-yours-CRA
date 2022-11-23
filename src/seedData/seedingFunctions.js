@@ -29,12 +29,14 @@ export const generateUser = () => {
 export const generateListing = () => {
   let descriptions = ['This is an amazing life-changing product/service!', 'You cannot get this anywhere else', 'There is no need to feel suspicious... of this product/service', 'Have you ever asked yourself, why would I need this?', '那个很有意思', 'No hace falta describir este producto/servicio'];
   let names = ['dog-walking service', 'cat-bathing service', 'fish-sitting service', 'reptile-incubating service', 'bird-watching service', 'rake', 'mop', 'broom', 'car', 'bus', 'train', 'jet', 'boat', 'rocket', 'bicycle', 'unicycle', 'tricycle', 'Pandora\'s box'];
-  let ownerIDs = [];
-  let photos = ['Mu', 'Aldebaran', 'Kanon', 'Deathmask', 'Aioria', 'Shaka', 'Doku', 'Milo', 'Aiolos', 'Shura', 'Camus', 'Aphrodite'];
+  let ownerIDs = ['iavP8ZPDhaeiS2dFl1IX', 'j0U99rRLIrAXQItwEsdX', 'kPTXw7OwTmjruvEMsIdE', 'l6upLJ43FKUVBP3jyjNv', 'mX6ZLpeI1KALgTqWxMbI', 'nNQshrV5jQPbCma22wCY', 'o85SfDAe6OVUKjLdyErr', 'pP8oG6buCTrqnOnZQ4xp', 'qCuXOn5lvMgK97MSxjPj', 'rwV5CsUns5T5LrzGOxqw', 'svHsna2xbm9ZyeUU22Qe', 'tlmkbuwpHbN5H6DqNTDD', 'uUyeb4CpDNVgOIABb3VE',
+  'volCFAtPepxIKMiKZsjy', 'wEmPGMEmMr7Azq0WpvOT', 'xgeHOotn377ETyhROb5F',
+  'y4Qa1efRXUcL0kxaDoOk', 'zcRalJkoCg7X00JX2n6r'];
+  let photos = [['Mu'], ['Aldebaran'], ['Kanon'], ['Deathmask'], ['Aioria'], ['Shaka'], ['Doku'], ['Milo'], ['Aiolos'], ['Shura'], ['Camus'], ['Aphrodite']];
   let zipCodes = [35004, 99501, 85001, 71601, 90001, 16001, 19701, 32003, 30002, 96701, 83201, 60001, 46001, 50001, 66002, 40003, 70001, 13901, 20588, 11001, 48001, 55001, 38601, 63001, 59001, 68001, 88901, 13031, 17001, 87001, 10501, 27006, 58001, 43001, 73001, 97001, 15001, 12801, 29001, 57001, 37010, 73301, 84001, 15001, 20101, 98001, 24701, 53001, 82001];
   let statuses = ['a', 'b', 'c'];
   let types = ['permanent', 'loan'];
-  let reviews = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  let reviews = [[1], [2], [3], [4], [5]];
 
   let randomValues = {};
   randomValues.description = descriptions[Math.floor(Math.random() * descriptions.length)];
@@ -65,6 +67,22 @@ export const createUser = async (email, first_name, last_name, username, zip_cod
   });
 };
 
+export const createListing = async (name, description, owner_id, photos, status, type, start_date = new Date('January 1, 2022 00:00:00'), end_date = new Date('December 31, 2022 11:59:59'), zip_code, reviews) => {
+  const listingsCollection = collection(db, 'listings');
+  return await addDoc(listingsCollection, {
+    name,
+    description,
+    owner_id,
+    photos,
+    status,
+    type,
+    start_date,
+    end_date,
+    zip_code,
+    reviews
+  })
+}
+
 export const seedUsers = () => {
   let totalUsers = [];
 
@@ -78,3 +96,17 @@ export const seedUsers = () => {
 
   return totalUsers;
 };
+
+export const seedListings = () => {
+  let totalListings = [];
+
+  while (totalListings.length < 50) {
+    totalListings.push(generateListing());
+  }
+
+  totalListings.forEach(item => {
+    createListing(item.name, item.description, item.owner_id, item.photos, item.zip_code, item.status, item.type, item.start_date, item.end_date, item.reviews)
+  });
+
+  return totalListings;
+}
