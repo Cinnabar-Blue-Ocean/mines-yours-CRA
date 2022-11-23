@@ -364,28 +364,3 @@ export const deleteReview = async (review_id) => {
 //   const listingsCollection = collection(db, 'listings');
 //   const data = query(listingsCollection, orderBy(''));
 // };
-
-export const generateListing = () => {
-  let emails = ['rat@aries.com', 'ox@taurus.com', 'tiger@gemini.com', 'rabbit@cancer.com', 'dragon@leo.com', 'snake@virgo.com', 'horse@libra.com', 'sheep@scorpio.com', 'monkey@sagittarius.com', 'rooster@capricorn.com', 'dog@aquarius.com', 'pig@pisces.com'];
-  let firstNames = ['Yuki', 'Haru', 'Kisa', 'Momiji', 'Hatori', 'Ayame', 'Rin', 'Hiro', 'Ritsu', 'Kureno', 'Shigure', 'Kagura'];
-  let lastNames = ['Sohma', 'Honda', 'Hanajima', 'Uotani'];
-  let usernames = ['Mu', 'Aldebaran', 'Kanon', 'Deathmask', 'Aioria', 'Shaka', 'Doku', 'Milo', 'Aiolos', 'Shura', 'Camus', 'Aphrodite'];
-  let zipCodes = [35004, 99501, 85001, 71601, 90001, 16001, 19701, 32003, 30002, 96701, 83201, 60001, 46001, 50001, 66002, 40003, 70001, 13901, 20588, 11001, 48001, 55001, 38601, 63001, 59001, 68001, 88901, 13031, 17001, 87001, 10501, 27006, 58001, 43001, 73001, 97001, 15001, 12801, 29001, 57001, 37010, 73301, 84001, 15001, 20101, 98001, 24701, 53001, 82001];
-  let bios = ['I am so awesome!', 'I am so depressed - sigh', 'I am suspicious... of everyone', '¿confused I so am?', '我没有意思', '¡Soy muy atractivo!'];
-  let images = ['a', 'b', 'c', 'd', 'e'];
-  let statuses = ['active', 'reported', 'exiled'];
-  let ratings = [1, 2, 3, 4, 5];
-
-  let randomValues = {};
-  randomValues.email = emails[Math.floor(Math.random() * emails.length)];
-  randomValues.firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-  randomValues.lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-  randomValues.username = usernames[Math.floor(Math.random() * usernames.length)];
-  randomValues.zipCode = zipCodes[Math.floor(Math.random() * zipCodes.length)];
-  randomValues.bio = bios[Math.floor(Math.random() * bios.length)];
-  randomValues.image = images[Math.floor(Math.random() * images.length)];
-  randomValues.status = statuses[Math.floor(Math.random() * statuses.length)];
-  randomValues.rating = ratings[Math.floor(Math.random() * ratings.length)];
-
-  return randomValues;
-};
