@@ -1,48 +1,51 @@
-# Getting Started with Create React App
+# Mine Yours
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A barter marketplace. Connecting the community in order to make a better world
 
-## Available Scripts
+> ### Group members<br>
 
-In the project directory, you can run:
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. [Description](#description)
+2. [Technical Overview](#technical-overview)
+3. [Usage](#usage)
+4. [Requirements](#requirements)
+5. [Firestore Methods](#firestoreMethods)
+6. [Production](#production)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Description
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technical Overview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
+In order to run the project locally please read [Requirements](#requirements) section for instructions setting up a local .env and for installing dependencies. Find further instructions for setting up the project for development or production in the [Development](#development) and [Production](#production) sections.
 
-### `npm run eject`
+## Requirements
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Node.js - version 16.0+
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installing Dependencies
+From within the root directory:
+> 1. Run ```npm install``` to install all required dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Firestore Methods
 
-## Learn More
+### User Functions
+Get users by a specific filter
+>```getUser(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
+Update User Information
+> ```updateUser(user_id, data)```
+> data: data object with properties to change on the user
+> Returns document reference
 
 Report User
 > ```reportUser(user_id)```
@@ -65,11 +68,19 @@ Create New Listing
 > Note: Start date defaults to current time
 > Returns document reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Get Listing by ID
+> ```getListingById(listing_id)```
+> Returns listing data
 
-### Analyzing the Bundle Size
+Get listings by a specific filter
+>```getListings(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Update Listing
+> ```updateListing(listing_id, data)```
+> data: data object with properties to change on the listing
+> Returns document reference
 
 Report Listing
 >```reportListing(listing_id)```
@@ -83,9 +94,6 @@ Delete Listing
 > ```deleteListing(listing_id)```
 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-
 ### Trade Functions
 Trade
 {
@@ -93,14 +101,46 @@ Trade
 }
 Has status "pending", "active", "reported", or "canceled"
 
+Get trades using a specific filter
+>```getTrades(object)```
+>
+> Returns the document reference that matches the properties in the object
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Post a trade
+> ```postTrade(listing_id, receiver_id, expiration_date [, start_date])```
+> Start date is optional, if not provided current time will be used. This creates the trade with a status of pending which will then be approved my owner
+> Returns trade_id
 
-### Deployment
+Approve a trade setting status to approved
+> ```approveTrade(trade_id)```
+> Returns trade document
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Cancel trade
+> ```cancelTrade(trade_id)```
+> Returns trade document
 
-### `npm run build` fails to minify
+Get trade by id
+> ```getTradeById(trade_id)```
+> Returns trade document
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# mines-yours-CRA
+
+### Message Functions
+
+Get messages using a specific filter
+>```getMessages(object)```
+>
+> Returns the document reference that matches the properties in the object
+
+
+### Review Functions
+
+Get reviews using a specific filter
+>```getReviews(object)```
+>
+> Returns the document reference that matches the properties in the object
+
+Get reviews using a specific filter
+>```postReview(trade_id, poster_id, rating, description)```
+>
+> Returns the document reference to created review.
+> Note: poster_id must match the owner_id or receiver_id of the trade being reviewed
