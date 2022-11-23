@@ -182,7 +182,7 @@ export const postTrade = async (listing_id, receiver_id, expiration_date, start_
         owner_id: listing.user_id,
         expiration_date,
         start_date,
-        status: true
+        status: 'pending'
       }
       let docRef = await addDoc(collection(db, 'trades'), data)
       return docRef.id
@@ -193,15 +193,58 @@ export const postTrade = async (listing_id, receiver_id, expiration_date, start_
   }
 }
 
+// accept a trade
+export const approveTrade = async (trade_id) => {
+  try {
+    const trade = await getTradeById(trade_id);
+    if (!trade) {
+      throw new Error('Could not find trade with id: ', trade_id)
+    } else {
+      return await updateTrade(trade_id, {status: "active"})
+    }
+  } catch (err) {
+    console.log('Error approving trade: ', err.message)
+  }
+}
+
+// decline a trade
+export const cancelTrade = () => {
+  try {
+
+  } catch (err) {
+    console.log('Error creating trade: ', err.message)
+  }
+}
+
+//report a listing
+export const reportListing = () => {
+  try {
+
+  } catch (err) {
+    console.log('Error creating trade: ', err.message)
+  }
+}
+
+// report a user
+export const reportUser = () => {
+  try {
+
+  } catch (err) {
+    console.log('Error creating trade: ', err.message)
+  }
+}
+
 //post a listing
-export const postListing = async (name, description, photos = [], type, zip_code) => {
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
   return await addDoc(collection(db, 'listings'), {
     name,
     description,
     photos,
-    status: true,
+    status: 'active',
     type,
-    user_id: auth.currentUser.uid,
+    start_date,
+    end_date,
+    owner_id: auth.currentUser.uid,
     zip_code
   })
 }
@@ -213,6 +256,11 @@ export const updateUser = async (user_id, data) => {
 }
 //update a review
 
+// update a trade
+export const updateTrade = async (trade_id, data) => {
+  const docRef = await doc(db, 'trades', trade_id)
+  return await updateDoc(docRef, data)
+}
 
 //update a listing
 export const updateListing = async (listing_id, data) => {

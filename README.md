@@ -49,9 +49,16 @@ Update User Information
 
 
 ### Listing Functions
+Listing
+{
+  name: String,
+  description: String
+}
+Has status "active", "reported", or "canceled"
+
 Create New Listing
-> ```postListing(name, description, photos, type, zip_code)```
->
+> ```postListing(name, description, photos, type, start_date, end_date, zip_code)```
+> Note: Start date defaults to current time
 > Returns document reference
 
 Get Listing by ID
@@ -73,6 +80,11 @@ Delete Listing
 
 
 ### Trade Functions
+Trade
+{
+
+}
+Has status "pending", "active", "reported", or "canceled"
 
 Get trades using a specific filter
 >```getTrades(object)```
