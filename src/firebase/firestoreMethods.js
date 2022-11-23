@@ -200,37 +200,89 @@ export const approveTrade = async (trade_id) => {
     if (!trade) {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
-      return await updateTrade(trade_id, {status: "active"})
+      await updateTrade(trade_id, {status: "active"})
+      return 'Trade approved'
     }
   } catch (err) {
     console.log('Error approving trade: ', err.message)
   }
 }
 
-// decline a trade
-export const cancelTrade = () => {
+// cancel trade
+export const cancelTrade = async (trade_id) => {
   try {
-
+    const trade = await getTradeById(trade_id);
+    if (!trade) {
+      throw new Error('Could not find trade with id: ', trade_id)
+    } else {
+      await updateTrade(trade_id, {status: "canceled"})
+      return 'Trade approved'
+    }
   } catch (err) {
-    console.log('Error creating trade: ', err.message)
+    console.log('Error canceling trade: ', err.message)
   }
 }
 
 //report a listing
-export const reportListing = () => {
+export const reportListing = async (listing_id) => {
   try {
-
+    const listing = await getListingById(listing_id);
+    if (!listing) {
+      throw new Error('Could not find listing with id: ', listing_id)
+    } else {
+      await updateTrade(listing_id, {status: "reported"})
+      return 'listing has been reported'
+    }
   } catch (err) {
-    console.log('Error creating trade: ', err.message)
+    console.log('Error reporting: ', err.message)
+  }
+}
+
+// activate listing
+
+
+// get a user by id
+export const getUserById = async (user_id) => {
+  try {
+    let docSnap = await getDoc(doc(db, 'users', user_id))
+    if (docSnap.exists()) {
+      return docSnap.data()
+    } else {
+      console.log('Could not find user with id: ', user_id)
+      return null;
+    }
+  } catch (err) {
+    console.log('Error getting user: ', err.message)
   }
 }
 
 // report a user
-export const reportUser = () => {
+export const reportUser = async (user_id) => {
   try {
-
+    const user = await getUserById(user_id);
+    if (!user) {
+      throw new Error('Could not find user with id: ', user_id)
+    } else {
+      await updateUser(user_id, {status: "reported"})
+      return 'User has been reported'
+    }
   } catch (err) {
-    console.log('Error creating trade: ', err.message)
+    console.log('Error reporting user: ', err.message)
+  }
+}
+
+// activate user
+export const activateUser = async (user_id) => {
+  try {
+    const user = await getUserById(user_id);
+    if (!user) {
+      throw new Error('Could not find user with id: ', user_id)
+    } else {
+      await updateUser(user_id, {status: "active"})
+      return 'User has been activated'
+    }
+  } catch (err) {
+    console.log('Error activating user: ', err.message)
   }
 }
 

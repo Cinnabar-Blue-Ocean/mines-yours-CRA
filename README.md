@@ -47,6 +47,13 @@ Update User Information
 > data: data object with properties to change on the user
 > Returns document reference
 
+Report User
+> ```reportUser(user_id)```
+> Returns result of action
+
+Activate User
+> ```activateUser(user_id)```
+> Returns result of action
 
 ### Listing Functions
 Listing
@@ -74,6 +81,14 @@ Update Listing
 > ```updateListing(listing_id, data)```
 > data: data object with properties to change on the listing
 > Returns document reference
+
+Report Listing
+>```reportListing(listing_id)```
+> Marks listing status to reported
+
+activate Listing
+>```reportListing(listing_id)```
+> Marks listing status to active, used when reactivating reported listing
 
 Delete Listing
 > ```deleteListing(listing_id)```
