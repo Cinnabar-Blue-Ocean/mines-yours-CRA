@@ -125,7 +125,7 @@ export default function AddListingModal({ open, handleClose }) {
                 {tradeType ? null : <DateSelector inValue={inValue} outValue={outValue} setValue={setValue} setInValue={setInValue}/>}
 
               </div>
-              <div style={{ marginLeft: 85 }}>
+              <div style={{ marginLeft: 145 }}>
                 <Button onClick={sendNewListing} variant="contained" endIcon={<PublishIcon />}>
                   Post Item
                 </Button>
