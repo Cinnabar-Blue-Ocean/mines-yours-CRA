@@ -8,62 +8,23 @@ import SignIn from '../pages/SignIn.jsx'
 import SignUp from '../pages/SignUp.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
+
 import {
-  getUser,
-  getListing,
+  getUsers,
+  getListings,
   getMessages,
   getReviews,
-  getTrades } from '../firebase/retrieveData';
+  getTrades } from '../firebase/firestoreMethods';
 import Loader from '../pages/Loading.jsx'
 
 
 const App = () => {
 
-  const [user, setUser] = useState([]);
-  const [listing, setListing] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [listings, setListings] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
-
-  // useEffect(() => {
-  //   getUser({username: "test"})
-  //     .then(data => {
-  //       setUser(data);
-  //     })
-  // }, []);
-
-  // useEffect(() => {
-  //   getListing({name: "Lawn Mower"})
-  //     .then(data => {
-  //       setListing(data);
-  //     })
-  // }, []);
-
-  // useEffect(() => {
-  //   getMessages({from_user: "test_from_user"})
-  //     .then(data => {
-  //       setMessages(data);
-  //     })
-  // }, [])
-
-  // useEffect(() => {
-  //   getReviews({})
-  //     .then(data => {
-  //       setReviews(data);
-  //     })
-  // }, [])
-
-  // useEffect(() => {
-  //   getTrades({})
-  //     .then(data => {
-  //       setTrades(data);
-  //     })
-  // }, [])
-
-  useEffect(() => {
-    console.log('user', user, 'listing', listing, 'messages', messages, 'reviews', reviews, 'trades', trades);
-  }, [user, listing, messages]);
-
 
   return (
     <Box>

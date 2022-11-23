@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { getListing } from '../../firebase/retrieveData.js'
+import {getListings} from '../../firebase/firestoreMethods.js'
 
 export default function ColorToggleButton(props) {
   const {setListings} = props
@@ -21,7 +21,7 @@ export default function ColorToggleButton(props) {
       sx={{ ml: '5px', pb: '10px' }}
     >
       <ToggleButton value="temporary" onClick={(e) => {
-        getListing({ type: e.target.value })
+        getListings({ type: e.target.value })
           .then((data) => {
             setListings(data)
           })
@@ -29,7 +29,7 @@ export default function ColorToggleButton(props) {
       <ToggleButton value="permanent"
         onClick={(e) => {
           // Get value of which button was clicked to query db
-          getListing({ type: e.target.value })
+          getListings({ type: e.target.value })
             .then((data) => {
               setListings(data)
             })

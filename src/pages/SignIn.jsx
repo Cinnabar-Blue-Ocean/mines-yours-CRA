@@ -1,7 +1,11 @@
 import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { useAuth } from "../firebase/authMethods.js";
-import { Box,Button,TextField } from '@mui/material';
+import { Paper,Box,Button,TextField,Tab,Tabs} from '@mui/material';
+import {TabPanel} from '@mui/lab';
+import TabContext from '@mui/lab/TabContext';
+import SignUpTab from '../components/sign/SignUpTab.jsx'
+import SignInTab from '../components/sign/SignInTab.jsx'
 
 function SignIn() {
   const {signIn, signInWithGoogle, resetPassword,signOutUser,user,findData} = useAuth();
@@ -110,70 +114,91 @@ function SignIn() {
   //   setLoading(false);
   // };
 
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    <>
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        display: "flex",
-        flexDirection: "column",
-        mb: '2em'
-      }}
-      noValidate
-      autoComplete="off"
-    >
-    <h3>Sign In</h3>
-      <TextField
-        id="outlined"
-        label="Email"
-        value={loginEmail}
-        onChange = {e => setLoginEmail(e.target.value)}
-        required
-      />
-      <TextField
-        id="outlined-password-input"
-        label="Password"
-        type="password"
-        value={loginPassword}
-        onChange = {e => setLoginPassword(e.target.value)}
-        required
-      />
-      <Button
-        sx={{
-          m: 1,
-          mb: 5,
-          width: '25ch'
-        }}
-        onClick={handleSignIn}
-          variant="outlined">Log In</Button>
-      Currently Signed In User: {user?.email}
-      Currently UserId: {user?.uid}
-      <Button
-          sx={{
-            m: 1,
-            mt: 5,
-            width: '25ch'
-          }}
-          onClick={handleSignOut}
-            variant="outlined">Log Out</Button>
-      <Button
-          sx={{
-            m: 1,
-            mt: 5,
-            width: '25ch'
-          }}
-          onClick={handleGoogleSignIn}
-            variant="outlined">SignIn with Google</Button>
-      <Button
-        sx={{
-          m: 1,
-          width: '25ch'
-        }}
-        onClick={()=>navigate("/signUp", { replace: true })}
-          variant="outlined">SignUp</Button>
+    <Box sx={{ width: '100%' }}>
+      <TabContext value={value}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="SignIn" value="1" />
+            <Tab label="SignUp" value="2" />
+        </Tabs>
+      </Box>
+        <TabPanel value="1">
+          <SignInTab />
+        </TabPanel>
+        <TabPanel value="2">
+          <SignUpTab />
+          </TabPanel>
+        </TabContext>
     </Box>
-    </>
+
+    // <Box
+    //   component="form"
+    //   sx={{
+    //     '& .MuiTextField-root': { m: 1, width: '25ch' },
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     mb: '2em'
+    //   }}
+    //   noValidate
+    //   autoComplete="off"
+    // >
+    // <h3>Sign In</h3>
+    //   <TextField
+    //     id="outlined"
+    //     label="Email"
+    //     value={loginEmail}
+    //     onChange = {e => setLoginEmail(e.target.value)}
+    //     required
+    //   />
+    //   <TextField
+    //     id="outlined-password-input"
+    //     label="Password"
+    //     type="password"
+    //     value={loginPassword}
+    //     onChange = {e => setLoginPassword(e.target.value)}
+    //     required
+    //   />
+    //   <Button
+    //     sx={{
+    //       m: 1,
+    //       mb: 5,
+    //       width: '25ch'
+    //     }}
+    //     onClick={handleSignIn}
+    //       variant="outlined">Log In</Button>
+    //   Currently Signed In User: {user?.email}
+    //   Currently UserId: {user?.uid}
+    //   <Button
+    //       sx={{
+    //         m: 1,
+    //         mt: 5,
+    //         width: '25ch'
+    //       }}
+    //       onClick={handleSignOut}
+    //         variant="outlined">Log Out</Button>
+    //   <Button
+    //       sx={{
+    //         m: 1,
+    //         mt: 5,
+    //         width: '25ch'
+    //       }}
+    //       onClick={handleGoogleSignIn}
+    //         variant="outlined">SignIn with Google</Button>
+    //   <Button
+    //     sx={{
+    //       m: 1,
+    //       width: '25ch'
+    //     }}
+    //     onClick={()=>navigate("/signUp", { replace: true })}
+    //       variant="outlined">SignUp</Button>
+    // </Box>
   );
 }
 

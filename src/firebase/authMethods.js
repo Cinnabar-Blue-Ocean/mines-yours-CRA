@@ -8,7 +8,7 @@ import {
   signInWithPopup
 } from 'firebase/auth'
 
-import { doc,collection, setDoc } from "firebase/firestore";
+import { doc,collection, setDoc, getDoc} from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -54,6 +54,11 @@ export function AuthProvider({ children }) {
     return setDoc(doc(db, "users", user.uid), data);
   }
 
+  function findData(id) {
+    console.log('user.uid',id)
+    return getDoc(doc(db, "users", id));
+  }
+
 
   // function updateEmail(email) {
   //   return user.updateEmail(email);
@@ -71,6 +76,7 @@ export function AuthProvider({ children }) {
     signOutUser,
     // resetPassword,
     addData,
+    findData
     // updateEmail,
     // updatePassword,
   };
