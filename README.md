@@ -43,9 +43,27 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Report User
+> ```reportUser(user_id)```
+> Returns result of action
+
+Activate User
+> ```activateUser(user_id)```
+> Returns result of action
+
+### Listing Functions
+Listing
+{
+  name: String,
+  description: String
+}
+Has status "active", "reported", or "canceled"
+
+Create New Listing
+> ```postListing(name, description, photos, type, start_date, end_date, zip_code)```
+> Note: Start date defaults to current time
+> Returns document reference
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
@@ -53,11 +71,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/c
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+Report Listing
+>```reportListing(listing_id)```
+> Marks listing status to reported
+
+activate Listing
+>```reportListing(listing_id)```
+> Marks listing status to active, used when reactivating reported listing
+
+Delete Listing
+> ```deleteListing(listing_id)```
+
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+
+### Trade Functions
+Trade
+{
+
+}
+Has status "pending", "active", "reported", or "canceled"
+
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
