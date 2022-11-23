@@ -19,7 +19,9 @@ import FormControl from '@mui/material/FormControl';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ImageUpload from './ImageUpload.jsx'
+import NewDateSelector from './NewDateSelector.jsx'
 import moment from 'moment';
+import {postListing} from '../../firebase/firestoreMethods.js'
 
 
 const style = {
@@ -59,6 +61,7 @@ export default function AddListingModal({ open, handleClose }) {
     }
     console.log(info)
     //name, description, photos = [], type, zip_code
+    postListing(itemName, itemDesc, imageUrls, tradeType, "zipcode")
   }
 
   return (

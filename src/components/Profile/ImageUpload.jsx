@@ -8,12 +8,15 @@ import {
 } from "firebase/storage";
 import { storage } from "../../firebase/index.js";
 import { v4 } from "uuid";
+import Button from '@mui/material/Button';
 
-function ImageUpload({imageUrls, setImageUrls}) {
+
+function ImageUpload({ imageUrls, setImageUrls }) {
   const [imageUpload, setImageUpload] = useState(null);
 
   const imagesListRef = ref(storage, "images/");
   const uploadFile = (e) => {
+    console.log(imageUpload)
     e.preventDefault()
     if (imageUpload == null) return;
     const imageRef = ref(storage, `listings/${imageUpload.name + v4()}`);
@@ -35,16 +38,22 @@ function ImageUpload({imageUrls, setImageUrls}) {
   }, []);
 
   return (
-    <div className="App">
-      <input
-        type="file"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }}
-      />
-      <button onClick={uploadFile}> Upload Image</button>
+    <div >
+      <Button sx={{mr: 2.5}} fullWidth={false} variant="outlined" component="label" color='primary'>
+      Select Photos
+        <input
+        hidden
+          type="file"
+          onChange={(event) => {
+            setImageUpload(event.target.files[0]);
+          }}
+        />
+      </Button>
+
+      <Button onClick={uploadFile} variant="outlined"> Upload Image</Button>
+      <div>{imageUpload ? `${imageUpload.name}` : null}</div>
       {imageUrls.map((url, i) => {
-        return <img key={i} src={url} width={70} height={70}/>;
+        return <img key={i} src={url} width={90} height={90} />;
       })}
     </div>
   );

@@ -12,11 +12,11 @@ export default function PhotoUploadButton() {
       <Button fullWidth={true} variant="outlined" component="label" color='primary'>
         Upload Photos
         <input hidden accept="image/*" multiple type="file" />
+      </Button>
       <IconButton color="primary" aria-label="upload picture" component="label">
         <input hidden accept="image/*" type="file" />
         <AddAPhotoOutlinedIcon />
       </IconButton>
-      </Button>
     </div>
   );
 }
