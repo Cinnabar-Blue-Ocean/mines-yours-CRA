@@ -13,7 +13,7 @@ A barter marketplace. Connecting the community in order to make a better world
 4. [Requirements](#requirements)
 5. [Firestore Methods](#firestoreMethods)
 6. [Production](#production)
-7. [Testing](#testing)
+
 
 ## Description
 
@@ -28,8 +28,6 @@ In order to run the project locally please read [Requirements](#requirements) se
 ## Requirements
 
 Node.js - version 16.0+
-
-### Configuring .env
 
 
 ### Installing Dependencies
@@ -48,6 +46,7 @@ Update User Information
 > ```updateUser(user_id, data)```
 > data: data object with properties to change on the user
 > Returns document reference
+
 
 ### Listing Functions
 Create New Listing
@@ -72,12 +71,39 @@ Update Listing
 Delete Listing
 > ```deleteListing(listing_id)```
 
+
+### Trade Functions
+
+Get trades using a specific filter
+>```getTrades(object)```
+>
+> Returns the document reference that matches the properties in the object
+
+Post a trade
+> ```postTrade(listing_id, receiver_id, expiration_date [, start_date])```
+> Start date is optional, if not provided current time will be used. This creates the trade with a status of pending which will then be approved my owner
+> Returns trade_id
+
+Approve a trade setting status to approved
+> ```approveTrade(trade_id)```
+> Returns trade document
+
+Cancel trade
+> ```cancelTrade(trade_id)```
+> Returns trade document
+
+Get trade by id
+> ```getTradeById(trade_id)```
+> Returns trade document
+
+
 ### Message Functions
 
 Get messages using a specific filter
 >```getMessages(object)```
 >
 > Returns the document reference that matches the properties in the object
+
 
 ### Review Functions
 
@@ -91,30 +117,3 @@ Get reviews using a specific filter
 >
 > Returns the document reference to created review.
 > Note: poster_id must match the owner_id or receiver_id of the trade being reviewed
-
-### Trade Functions
-
-Get trades using a specific filter
->```getTrades(object)```
->
-> Returns the document reference that matches the properties in the object
-
-Post a trade
-> ```postTrade(listing_id, receiver_id, expiration_date [, start_date])```
-> Start date is optional, if not provided current time will be used
-> Returns trade_id
-
-Get trade by id
-> ```getTradeById(trade_id)```
-> Returns trade document
-
-
-## Production
-
-Creating production build:
-
-## Testing
-
-To get a coverage report from Jest use script ```npm run test-coverage```, along with the console coverage report an HTML file will be created in the coverage directory located in the projects root.
-
-To just run the jest tests in the console with no coverage report use script ```npm run test```.
