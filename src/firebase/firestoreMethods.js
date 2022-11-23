@@ -227,7 +227,7 @@ export const cancelTrade = async (trade_id) => {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
       await updateTrade(trade_id, {status: "canceled"})
-      return 'Trade approved'
+      return 'Trade canceled'
     }
   } catch (err) {
     console.log('Error canceling trade: ', err.message)
@@ -241,7 +241,7 @@ export const reportListing = async (listing_id) => {
     if (!listing) {
       throw new Error('Could not find listing with id: ', listing_id)
     } else {
-      await updateTrade(listing_id, {status: "reported"})
+      await updateListing(listing_id, {status: "reported"})
       return 'listing has been reported'
     }
   } catch (err) {
@@ -250,7 +250,19 @@ export const reportListing = async (listing_id) => {
 }
 
 // activate listing
-
+export const activateListing = async (listing_id) => {
+  try {
+    const listing = await getListingById(listing_id);
+    if (!listing) {
+      throw new Error('Could not find listing with id: ', listing_id)
+    } else {
+      await updateListing(listing_id, {status: "active"})
+      return 'listing has been activated'
+    }
+  } catch (err) {
+    console.log('Error activating: ', err.message)
+  }
+}
 
 // get a user by id
 export const getUserById = async (user_id) => {
@@ -318,6 +330,10 @@ export const updateUser = async (user_id, data) => {
   return await updateDoc(docRef, data)
 }
 //update a review
+export const updateReview = async (review_id, data) => {
+  const docRef = await doc(db, 'reviews', review_id)
+  return await updateDoc(docRef, data)
+}
 
 // update a trade
 export const updateTrade = async (trade_id, data) => {
@@ -330,6 +346,8 @@ export const updateListing = async (listing_id, data) => {
   const docRef = await doc(db, 'listings', listing_id)
   return await updateDoc(docRef, data)
 }
+
+
 
 //delete a listing
 export const deleteListing = async (listing_id) => {
