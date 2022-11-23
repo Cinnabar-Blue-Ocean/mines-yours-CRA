@@ -38,20 +38,16 @@ function SignIn() {
     alignItems="center"
     justifyContent="center"
     flexDirection='column'
-    // borderLeft='1px solid green'
-    // backgroundColor='grey'
-    // width='50vw'
-    // height='100vh'
     p='50px'
     pt='0'
     >
       <TabContext value={value}>
-      <Box sx={{ borderBottom: 1, borderColor: 'green' ,width:{ lg: '300px', xs: '250px' },}}>
+        {!user?<Box sx={{ borderBottom: 1, borderColor: 'green' ,width:{ lg: '300px', xs: '250px' },}}>
         <Tabs value={value} onChange={handleChange} aria-label="disabled tabs example" centered >
             <Tab label="SignIn" value="0" />
             <Tab label="SignUp" disabled={user?true:false} value="1" />
         </Tabs>
-      </Box>
+      </Box>:null}
         <TabPanel value="0">
           <SignInTab />
         </TabPanel>

@@ -4,10 +4,12 @@ import { useAuth } from "../../firebase/authMethods.js";
 import { Box,Button,TextField,Stack } from '@mui/material';
 
 function SignUpTab() {
-  const {signIn, signUp,user,signOutUser} = useAuth();
+  const {signIn, signUp,user,signOutUser,signInWithGoogle,findInfo} = useAuth();
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  // const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [email, setEmail] = useState('');
@@ -36,6 +38,21 @@ function SignUpTab() {
     setLoading(false);
   };
 
+  const handleGoogleSignIn = async () => {
+    await signOutUser()
+    try {
+      await signInWithGoogle().then(result=>{
+        console.log(`result`,result)
+        findInfo(result)
+      });
+      setGoogleLoading(true);
+    } catch (error) {
+      setError(error.message);
+    }
+
+    setGoogleLoading(false);
+  };
+
   const handleSignOut = async (e)=>{
     try {
       setLoading(true);
@@ -45,6 +62,12 @@ function SignUpTab() {
     }
   }
 
+  const handleSkip =()=>{
+    navigate(`/loading`, { replace: true })
+    setTimeout(fun=>{
+      navigate(`/`, { replace: true })
+    }, 600)
+  }
 
   return (
     <Stack
@@ -84,6 +107,15 @@ function SignUpTab() {
         }}
         onClick={handleSingUp}
           variant="outlined">Submit</Button>
+            <Button
+          sx={{
+            width: { lg: '300px', xs: '250px' },
+            color:'green',
+            border:'1px solid green'
+          }}
+          onClick={handleGoogleSignIn}
+            variant="outlined">SignUp with Google</Button>
+     <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handleSkip}>Skip as guest</Box>
     </Stack>
   );
 }
