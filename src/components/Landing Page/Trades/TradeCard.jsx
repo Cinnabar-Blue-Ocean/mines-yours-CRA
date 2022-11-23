@@ -16,7 +16,7 @@ export default function MediaCard(props) {
     <>
     {listings.map((item, i) => {
       return (
-        <Card sx={{ width: 280 }} key={i}>
+        <Card sx={{ width: 260 }} key={i}>
         <CardMedia
           component="img"
           height="140"
