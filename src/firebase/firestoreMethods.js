@@ -119,27 +119,7 @@ export const getTrades = async (filters) => {
   }
 };
 
-//get a specific listing
-export const getListingById = async (listing_id) => {
-  let docSnap = await getDoc(doc(db, 'listings', listing_id))
-  if (docSnap.exists()) {
-    return docSnap.data()
-  } else {
-    console.log('Could not find listing with id: ', listing_id)
-    return null;
-  }
-  try {
-    let docSnap = await getDoc(doc(db, 'trades', listing_id))
-    if (docSnap.exists()) {
-      return docSnap.data()
-    } else {
-      console.log('Could not find trade with id: ', listing_id)
-      return null;
-    }
-  } catch (err) {
-    console.log('Error getting trade: ', err.message)
-  }
-}
+// ------ Trades ------- //
 
 //get a trade
 export const getTradeById = async (trade_id) => {
@@ -153,31 +133,6 @@ export const getTradeById = async (trade_id) => {
     }
   } catch (err) {
     console.log('Error getting trade: ', err.message)
-  }
-}
-
-//post a review
-export const postReview = async (trade_id, poster_id, rating, description) => {
-  try {
-    const trade = await getTradeById(trade_id)
-    console.log('trade',trade)
-    if (!trade) {
-      throw new Error('Could not find trade with id, ', trade_id)
-    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
-      throw new Error('Reviews must be from a party of the trade')
-    } else {
-      const data = {
-        trade_id,
-        poster_id,
-        rating,
-        description
-      }
-      let docRef = await addDoc(collection(db, 'reviews'), data)
-      return docRef.id
-    }
-
-  } catch (err) {
-    console.log('Error creating review: ', err.message)
   }
 }
 
@@ -234,6 +189,44 @@ export const cancelTrade = async (trade_id) => {
   }
 }
 
+// update a trade
+export const updateTrade = async (trade_id, data) => {
+  const docRef = await doc(db, 'trades', trade_id)
+  return await updateDoc(docRef, data)
+}
+
+
+// ------ Listings ------- //
+
+//get a specific listing
+export const getListingById = async (listing_id) => {
+  try {
+    let docSnap = await getDoc(doc(db, 'listings', listing_id))
+    if (docSnap.exists()) {
+      return docSnap.data()
+    } else {
+      console.log('Could not find listing with id: ', listing_id)
+      return null;
+    }
+  } catch (err) {
+    console.log('Error getting listing: ', err.message)
+  }
+}
+
+//post a listing
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
+  return await addDoc(collection(db, 'listings'), {
+    name,
+    description,
+    photos,
+    status: 'active',
+    type,
+    start_date,
+    end_date,
+    owner_id: auth.currentUser.uid,
+    zip_code
+  })
+}
 //report a listing
 export const reportListing = async (listing_id) => {
   try {
@@ -264,6 +257,60 @@ export const activateListing = async (listing_id) => {
   }
 }
 
+//update a listing
+export const updateListing = async (listing_id, data) => {
+  const docRef = await doc(db, 'listings', listing_id)
+  return await updateDoc(docRef, data)
+}
+
+//delete a listing
+export const deleteListing = async (listing_id) => {
+  return await deleteDoc(doc(db, 'listings', listing_id))
+};
+
+
+// ------ Reviews ------- //
+
+//post a review
+export const postReview = async (trade_id, poster_id, rating, description) => {
+  try {
+    const trade = await getTradeById(trade_id)
+    console.log('trade',trade)
+    if (!trade) {
+      throw new Error('Could not find trade with id, ', trade_id)
+    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
+      throw new Error('Reviews must be from a party of the trade')
+    } else {
+      const data = {
+        trade_id,
+        poster_id,
+        rating,
+        description
+      }
+      let docRef = await addDoc(collection(db, 'reviews'), data)
+      return docRef.id
+    }
+
+  } catch (err) {
+    console.log('Error creating review: ', err.message)
+  }
+}
+
+//update a review
+export const updateReview = async (review_id, data) => {
+  const docRef = await doc(db, 'reviews', review_id)
+  return await updateDoc(docRef, data)
+}
+
+
+//delete a review
+export const deleteReview = async (review_id) => {
+  return await deleteDoc(doc(db, 'reviews', review_id));
+};
+
+
+// ------ Users ------- //
+
 // get a user by id
 export const getUserById = async (user_id) => {
   try {
@@ -277,6 +324,12 @@ export const getUserById = async (user_id) => {
   } catch (err) {
     console.log('Error getting user: ', err.message)
   }
+}
+
+//update user info
+export const updateUser = async (user_id, data) => {
+  const docRef = await doc(db, 'users', user_id)
+  return await updateDoc(docRef, data)
 }
 
 // report a user
@@ -309,83 +362,10 @@ export const activateUser = async (user_id) => {
   }
 }
 
-//post a listing
-export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
-  return await addDoc(collection(db, 'listings'), {
-    name,
-    description,
-    photos,
-    status: 'active',
-    type,
-    start_date,
-    end_date,
-    owner_id: auth.currentUser.uid,
-    zip_code
-  })
-}
-
-//update user info
-export const updateUser = async (user_id, data) => {
-  const docRef = await doc(db, 'users', user_id)
-  return await updateDoc(docRef, data)
-}
-//update a review
-export const updateReview = async (review_id, data) => {
-  const docRef = await doc(db, 'reviews', review_id)
-  return await updateDoc(docRef, data)
-}
-
-// update a trade
-export const updateTrade = async (trade_id, data) => {
-  const docRef = await doc(db, 'trades', trade_id)
-  return await updateDoc(docRef, data)
-}
-
-//update a listing
-export const updateListing = async (listing_id, data) => {
-  const docRef = await doc(db, 'listings', listing_id)
-  return await updateDoc(docRef, data)
-}
-
-
-
-//delete a listing
-export const deleteListing = async (listing_id) => {
-  return await deleteDoc(doc(db, 'listings', listing_id))
-};
-
-//delete a review
-export const deleteReview = async (review_id) => {
-  return await deleteDoc(doc(db, 'reviews', review_id));
-};
 
 //paginate results
-// export const getAllListingsBy = async () => {
+//export const getAllListingsBy = async () => {
 //   const listingsCollection = collection(db, 'listings');
 //   const data = query(listingsCollection, orderBy(''));
 // };
 
-export const generateListing = () => {
-  let emails = ['rat@aries.com', 'ox@taurus.com', 'tiger@gemini.com', 'rabbit@cancer.com', 'dragon@leo.com', 'snake@virgo.com', 'horse@libra.com', 'sheep@scorpio.com', 'monkey@sagittarius.com', 'rooster@capricorn.com', 'dog@aquarius.com', 'pig@pisces.com'];
-  let firstNames = ['Yuki', 'Haru', 'Kisa', 'Momiji', 'Hatori', 'Ayame', 'Rin', 'Hiro', 'Ritsu', 'Kureno', 'Shigure', 'Kagura'];
-  let lastNames = ['Sohma', 'Honda', 'Hanajima', 'Uotani'];
-  let usernames = ['Mu', 'Aldebaran', 'Kanon', 'Deathmask', 'Aioria', 'Shaka', 'Doku', 'Milo', 'Aiolos', 'Shura', 'Camus', 'Aphrodite'];
-  let zipCodes = [35004, 99501, 85001, 71601, 90001, 16001, 19701, 32003, 30002, 96701, 83201, 60001, 46001, 50001, 66002, 40003, 70001, 13901, 20588, 11001, 48001, 55001, 38601, 63001, 59001, 68001, 88901, 13031, 17001, 87001, 10501, 27006, 58001, 43001, 73001, 97001, 15001, 12801, 29001, 57001, 37010, 73301, 84001, 15001, 20101, 98001, 24701, 53001, 82001];
-  let bios = ['I am so awesome!', 'I am so depressed - sigh', 'I am suspicious... of everyone', '¿confused I so am?', '我没有意思', '¡Soy muy atractivo!'];
-  let images = ['a', 'b', 'c', 'd', 'e'];
-  let statuses = ['active', 'reported', 'exiled'];
-  let ratings = [1, 2, 3, 4, 5];
-
-  let randomValues = {};
-  randomValues.email = emails[Math.floor(Math.random() * emails.length)];
-  randomValues.firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-  randomValues.lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-  randomValues.username = usernames[Math.floor(Math.random() * usernames.length)];
-  randomValues.zipCode = zipCodes[Math.floor(Math.random() * zipCodes.length)];
-  randomValues.bio = bios[Math.floor(Math.random() * bios.length)];
-  randomValues.image = images[Math.floor(Math.random() * images.length)];
-  randomValues.status = statuses[Math.floor(Math.random() * statuses.length)];
-  randomValues.rating = ratings[Math.floor(Math.random() * ratings.length)];
-
-  return randomValues;
-};
