@@ -37,10 +37,26 @@ From within the root directory:
 ## Firestore Methods
 
 ### User Functions
+User Object
+}
+username: String
+email: String
+first_name: String
+last_name: String
+profile_image: String
+bio: String
+rating: Number
+status: String
+zip_code: Number
+}
+
 Get users by a specific filter
 >```getUser(object)```
->
 > Returns the document reference that matches the properties in the object
+
+Get user by id
+>```getUserById(user_id)
+> Returns user document
 
 Update User Information
 > ```updateUser(user_id, data)```
@@ -56,11 +72,19 @@ Activate User
 > Returns result of action
 
 ### Listing Functions
-Listing
+Listing Object
 {
-  name: String,
-  description: String
+name: String
+description: String
+owner_id: String
+photos: Array of Strings
+start_date: Date
+end_date: Date
+status: String
+type: String
+zip_code: Number
 }
+
 Has status "active", "reported", or "canceled"
 
 Create New Listing
@@ -95,9 +119,14 @@ Delete Listing
 
 
 ### Trade Functions
-Trade
+Trade Object
 {
-
+listing_id: String UID
+owner_id: String UID
+receiver_id: String UID
+start_date: Date
+expiration_date: Date
+status: String
 }
 Has status "pending", "active", "reported", or "canceled"
 
