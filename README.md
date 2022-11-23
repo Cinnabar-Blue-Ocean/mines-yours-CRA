@@ -37,21 +37,59 @@ From within the root directory:
 ## Firestore Methods
 
 ### User Functions
+User Object
+}
+username: String
+email: String
+first_name: String
+last_name: String
+profile_image: String
+bio: String
+rating: Number
+status: String
+zip_code: Number
+}
+
 Get users by a specific filter
 >```getUser(object)```
->
 > Returns the document reference that matches the properties in the object
+
+Get user by id
+>```getUserById(user_id)
+> Returns user document
 
 Update User Information
 > ```updateUser(user_id, data)```
 > data: data object with properties to change on the user
 > Returns document reference
 
+Report User
+> ```reportUser(user_id)```
+> Returns result of action
+
+Activate User
+> ```activateUser(user_id)```
+> Returns result of action
 
 ### Listing Functions
+Listing Object
+{
+name: String
+description: String
+owner_id: String
+photos: Array of Strings
+start_date: Date
+end_date: Date
+status: String
+type: String
+zip_code: Number
+}
+
+Has status "active", "reported", or "canceled"
+
 Create New Listing
-> ```postListing(name, description, photos, type, zip_code)```
->
+> ```postListing(name, description, photos, type, start_date, end_date, zip_code)```
+> Note: Start date defaults to current time
 > Returns document reference
 
 Get Listing by ID
@@ -68,11 +106,29 @@ Update Listing
 > data: data object with properties to change on the listing
 > Returns document reference
 
+Report Listing
+>```reportListing(listing_id)```
+> Marks listing status to reported
+
+activate Listing
+>```reportListing(listing_id)```
+> Marks listing status to active, used when reactivating reported listing
+
 Delete Listing
 > ```deleteListing(listing_id)```
 
 
 ### Trade Functions
+Trade Object
+{
+listing_id: String UID
+owner_id: String UID
+receiver_id: String UID
+start_date: Date
+expiration_date: Date
+status: String
+}
+Has status "pending", "active", "reported", or "canceled"
 
 Get trades using a specific filter
 >```getTrades(object)```

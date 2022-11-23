@@ -11,7 +11,7 @@ function SignOut({ style }) {
   const [error, setError] = useState(null);
 
   const handleSignOut = async (e)=>{
-    // e?e.preventDefault():null;
+    e.preventDefault()
     try {
       await signOutUser()
       setLoading(true);

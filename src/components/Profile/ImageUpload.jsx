@@ -8,10 +8,10 @@ import {
 } from "firebase/storage";
 import { storage } from "../../firebase/index.js";
 import { v4 } from "uuid";
-import Button from '@mui/material/Button';
+import {Button,Box} from '@mui/material';
 
 
-function ImageUpload({ imageUrls, setImageUrls }) {
+function ImageUpload({ imageUrls, setImageUrls, path,style,wrapStyle}) {
   const [imageUpload, setImageUpload] = useState(null);
 
   const imagesListRef = ref(storage, "images/");
@@ -19,7 +19,7 @@ function ImageUpload({ imageUrls, setImageUrls }) {
     console.log(imageUpload)
     e.preventDefault()
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `listings/${imageUpload.name + v4()}`);
+    const imageRef = ref(storage, `${path}/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrls((prev) => [...prev, url]);
@@ -38,8 +38,10 @@ function ImageUpload({ imageUrls, setImageUrls }) {
   }, []);
 
   return (
-    <div >
-      <Button sx={{mr: 2.5}} fullWidth={false} variant="outlined" component="label" color='primary'>
+    <Box
+      sx={wrapStyle}
+    >
+      <Button sx={style} fullWidth={false} variant="outlined" component="label" color='primary'>
       Select Photos
         <input
         hidden
@@ -50,12 +52,12 @@ function ImageUpload({ imageUrls, setImageUrls }) {
         />
       </Button>
 
-      <Button onClick={uploadFile} variant="outlined"> Upload Image</Button>
+      <Button sx={style} onClick={uploadFile} variant="outlined"> Upload Image</Button>
       <div>{imageUpload ? `${imageUpload.name}` : null}</div>
       {imageUrls.map((url, i) => {
         return <img key={i} src={url} width={90} height={90} />;
       })}
-    </div>
+    </Box>
   );
 }
 
