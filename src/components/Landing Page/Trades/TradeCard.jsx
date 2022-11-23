@@ -28,24 +28,24 @@ export default function MediaCard(props) {
             {item.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {item.description.split('.')[0] + '...'}
+            {item.description.split('.')[0] + ' ...'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {`${item.type[0].toUpperCase() + item.type.substr(1)} trade located at ${item.zip_code}`}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{pt: '5px'}}>
-            {`Posted by: ${item.user_id}`}
+            {`Posted by: ${item.owner_id}`}
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={(e) => {
             // Get info about item and user to send to db to query
-            console.log(item.name, item.user_id)
+            console.log(item.name, item.owner_id)
           }}>Message</Button>
           <BasicModal images={item.photos} description={item.description}/>
           <Container className="avatar" sx={{width: '0 !important'}} onClick={(e) => {
             //info about user
-            console.log(item.user_id)
+            console.log(item.owner_id)
           }}>
           <Avatar alt="Remy Sharp" src={item.avatar} />
           </Container>
