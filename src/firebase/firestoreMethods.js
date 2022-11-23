@@ -119,27 +119,7 @@ export const getTrades = async (filters) => {
   }
 };
 
-//get a specific listing
-export const getListingById = async (listing_id) => {
-  let docSnap = await getDoc(doc(db, 'listings', listing_id))
-  if (docSnap.exists()) {
-    return docSnap.data()
-  } else {
-    console.log('Could not find listing with id: ', listing_id)
-    return null;
-  }
-  try {
-    let docSnap = await getDoc(doc(db, 'trades', listing_id))
-    if (docSnap.exists()) {
-      return docSnap.data()
-    } else {
-      console.log('Could not find trade with id: ', listing_id)
-      return null;
-    }
-  } catch (err) {
-    console.log('Error getting trade: ', err.message)
-  }
-}
+// ------ Trades ------- //
 
 //get a trade
 export const getTradeById = async (trade_id) => {
@@ -153,31 +133,6 @@ export const getTradeById = async (trade_id) => {
     }
   } catch (err) {
     console.log('Error getting trade: ', err.message)
-  }
-}
-
-//post a review
-export const postReview = async (trade_id, poster_id, rating, description) => {
-  try {
-    const trade = await getTradeById(trade_id)
-    console.log('trade',trade)
-    if (!trade) {
-      throw new Error('Could not find trade with id, ', trade_id)
-    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
-      throw new Error('Reviews must be from a party of the trade')
-    } else {
-      const data = {
-        trade_id,
-        poster_id,
-        rating,
-        description
-      }
-      let docRef = await addDoc(collection(db, 'reviews'), data)
-      return docRef.id
-    }
-
-  } catch (err) {
-    console.log('Error creating review: ', err.message)
   }
 }
 
@@ -234,6 +189,44 @@ export const cancelTrade = async (trade_id) => {
   }
 }
 
+// update a trade
+export const updateTrade = async (trade_id, data) => {
+  const docRef = await doc(db, 'trades', trade_id)
+  return await updateDoc(docRef, data)
+}
+
+
+// ------ Listings ------- //
+
+//get a specific listing
+export const getListingById = async (listing_id) => {
+  try {
+    let docSnap = await getDoc(doc(db, 'listings', listing_id))
+    if (docSnap.exists()) {
+      return docSnap.data()
+    } else {
+      console.log('Could not find listing with id: ', listing_id)
+      return null;
+    }
+  } catch (err) {
+    console.log('Error getting listing: ', err.message)
+  }
+}
+
+//post a listing
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
+  return await addDoc(collection(db, 'listings'), {
+    name,
+    description,
+    photos,
+    status: 'active',
+    type,
+    start_date,
+    end_date,
+    owner_id: auth.currentUser.uid,
+    zip_code
+  })
+}
 //report a listing
 export const reportListing = async (listing_id) => {
   try {
@@ -264,6 +257,60 @@ export const activateListing = async (listing_id) => {
   }
 }
 
+//update a listing
+export const updateListing = async (listing_id, data) => {
+  const docRef = await doc(db, 'listings', listing_id)
+  return await updateDoc(docRef, data)
+}
+
+//delete a listing
+export const deleteListing = async (listing_id) => {
+  return await deleteDoc(doc(db, 'listings', listing_id))
+};
+
+
+// ------ Reviews ------- //
+
+//post a review
+export const postReview = async (trade_id, poster_id, rating, description) => {
+  try {
+    const trade = await getTradeById(trade_id)
+    console.log('trade',trade)
+    if (!trade) {
+      throw new Error('Could not find trade with id, ', trade_id)
+    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
+      throw new Error('Reviews must be from a party of the trade')
+    } else {
+      const data = {
+        trade_id,
+        poster_id,
+        rating,
+        description
+      }
+      let docRef = await addDoc(collection(db, 'reviews'), data)
+      return docRef.id
+    }
+
+  } catch (err) {
+    console.log('Error creating review: ', err.message)
+  }
+}
+
+//update a review
+export const updateReview = async (review_id, data) => {
+  const docRef = await doc(db, 'reviews', review_id)
+  return await updateDoc(docRef, data)
+}
+
+
+//delete a review
+export const deleteReview = async (review_id) => {
+  return await deleteDoc(doc(db, 'reviews', review_id));
+};
+
+
+// ------ Users ------- //
+
 // get a user by id
 export const getUserById = async (user_id) => {
   try {
@@ -277,6 +324,12 @@ export const getUserById = async (user_id) => {
   } catch (err) {
     console.log('Error getting user: ', err.message)
   }
+}
+
+//update user info
+export const updateUser = async (user_id, data) => {
+  const docRef = await doc(db, 'users', user_id)
+  return await updateDoc(docRef, data)
 }
 
 // report a user
@@ -309,58 +362,10 @@ export const activateUser = async (user_id) => {
   }
 }
 
-//post a listing
-export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
-  return await addDoc(collection(db, 'listings'), {
-    name,
-    description,
-    photos,
-    status: 'active',
-    type,
-    start_date,
-    end_date,
-    owner_id: auth.currentUser.uid,
-    zip_code
-  })
-}
-
-//update user info
-export const updateUser = async (user_id, data) => {
-  const docRef = await doc(db, 'users', user_id)
-  return await updateDoc(docRef, data)
-}
-//update a review
-export const updateReview = async (review_id, data) => {
-  const docRef = await doc(db, 'reviews', review_id)
-  return await updateDoc(docRef, data)
-}
-
-// update a trade
-export const updateTrade = async (trade_id, data) => {
-  const docRef = await doc(db, 'trades', trade_id)
-  return await updateDoc(docRef, data)
-}
-
-//update a listing
-export const updateListing = async (listing_id, data) => {
-  const docRef = await doc(db, 'listings', listing_id)
-  return await updateDoc(docRef, data)
-}
-
-
-
-//delete a listing
-export const deleteListing = async (listing_id) => {
-  return await deleteDoc(doc(db, 'listings', listing_id))
-};
-
-//delete a review
-export const deleteReview = async (review_id) => {
-  return await deleteDoc(doc(db, 'reviews', review_id));
-};
 
 //paginate results
-// export const getAllListingsBy = async () => {
+//export const getAllListingsBy = async () => {
 //   const listingsCollection = collection(db, 'listings');
 //   const data = query(listingsCollection, orderBy(''));
 // };
+
