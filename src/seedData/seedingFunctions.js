@@ -105,7 +105,7 @@ export const seedListings = () => {
   }
 
   totalListings.forEach(item => {
-    createListing(item.name, item.description, item.owner_id, item.photos, item.zip_code, item.status, item.type, item.start_date, item.end_date, item.reviews)
+    createListing(item.name, item.description, item.owner_id, item.photos, item.status, item.type, item.start_date, item.end_date, item.zip_code, item.reviews)
   });
 
   return totalListings;
