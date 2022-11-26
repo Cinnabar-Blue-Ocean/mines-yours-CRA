@@ -17,9 +17,9 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
-const pages = ['Home', 'Profile', 'Listings', 'New Listing'];
+const pages = ['Home', 'Profile', 'Listings', 'Sign in', 'New Listing'];
 const settings = ['Account', 'Logout'];
-const urlMap = ['/', '/profile/:userId', '/signIn', '/'];
+const urlMap = ['/', '/profile/:userId', '/listings', '/signIn', '/'];
 //
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

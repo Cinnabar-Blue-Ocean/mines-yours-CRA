@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../firebase/authMethods.js";
-import { Paper,Box,Button,TextField,Tab,Tabs} from '@mui/material';
+import { Paper,Box,Button,TextField,Tab,Tabs,Link,Stack} from '@mui/material';
 import {TabPanel} from '@mui/lab';
 import TabContext from '@mui/lab/TabContext';
 import SignOut from './SignOut.jsx';
@@ -19,6 +19,7 @@ function SignInTab() {
 
   useEffect(() => {
       console.log(user?.uid)
+      console.log(user)
   }, [googleLoading]);
 
 
@@ -76,54 +77,50 @@ function SignInTab() {
     }
   }
 
-  // const handlePassword = async () => {
-  //   setMessage(null);
-  //   setError(null);
+  const handlePassword = async () => {
+    console.log('hello')
+    console.log(loginEmail)
+    setMessage(null);
+    setError(null);
 
-  //   const { email } = values;
+    if (!loginEmail) {
+      return setError("Please enter an email first");
+    }
 
-  //   if (!email) {
-  //     return setError("Please enter an email first");
-  //   }
+    try {
+      console.log('are we here')
+      setLoading(true);
+      await resetPassword(loginEmail);
+      setMessage("Successfully sent email reset link");
+    } catch (error) {
+      console.log(error)
+      setError(error.message.slice(10));
+    }
 
-  //   try {
-  //     setLoading(true);
-  //     await resetPassword(email);
-  //     setMessage("Successfully sent email reset link");
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
+    setLoading(false);
+  };
 
-  //   setLoading(false);
-  // };
-
+  const handleSkip =()=>{
+    navigate(`/loading`, { replace: true })
+    setTimeout(fun=>{
+      navigate(`/`, { replace: true })
+    }, 600)
+  }
   return (
-
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        display: "flex",
-        flexDirection: "column",
-        mb: '2em'
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    <>
       {!user?
-      <Box
+      <Stack
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        display: "flex",
+        gap:'15px',
         flexDirection: "column",
-        mb: '2em'
       }}
       noValidate
       autoComplete="off"
       >
-      <h3>Sign In</h3>
+      <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px'}} >Sign In</Box>
       <TextField
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined"
         label="Email"
         value={loginEmail}
@@ -132,6 +129,7 @@ function SignInTab() {
         width = '25ch'
       />
       <TextField
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="Password"
         type="password"
@@ -140,53 +138,50 @@ function SignInTab() {
         width = '25ch'
         required
       />
+        {message && <Box sx={{color:'green',fontWeight:'1000'}} >{message}!</Box>}
+        {error && <Box sx={{color:'green',fontWeight:'1000'}}>{error}!</Box>}
+      <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handlePassword}>Forgot password?</Box>
       <Button
         sx={{
-          m: 1,
-          mb: 5,
-          width: '25ch'
+          width: { lg: '300px', xs: '250px' },
+          color:'green',
+          border:'1px solid green'
         }}
         onClick={handleSignIn}
           variant="outlined">Log In
       </Button>
       <Button
           sx={{
-            m: 1,
-            mt: 5,
-            width: '25ch'
+            width: { lg: '300px', xs: '250px' },
+            color:'green',
+            border:'1px solid green'
           }}
           onClick={handleGoogleSignIn}
             variant="outlined">SignIn with Google</Button>
-      <Button
-        sx={{
-          m: 1,
-          width: '25ch'
-        }}
-        onClick={()=>navigate("/signUp", { replace: true })}
-          variant="outlined">SignUp</Button>
-      </Box>
+       <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handleSkip}>Skip as guest</Box>
+      </Stack>
       :
-      <Box
+      <Stack
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        display: "flex",
+        gap:'25px',
         flexDirection: "column",
-        mb: '2em'
+        justifyContent:'center',
+        alignItems:'center'
       }}
       noValidate
       autoComplete="off"
       >
-      Currently Signed In User: {user?.email}
-      Currently UserId: {user?.uid}
+      <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px',textAlign:'center'}}>WelCome Back: {user?.email}</Box>
       <SignOut style={{
-            m: 1,
-            mt: 5,
-            width: '25ch'
+            border:'1px solid green',
+            color:'green',
+            width: '300px'
           }}/>
-      </Box>
+       <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handleSkip}>Go to the home</Box>
+      </Stack>
       }
-    </Box>
+      </>
   );
 }
 
