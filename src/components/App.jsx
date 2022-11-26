@@ -14,7 +14,8 @@ import {
   getListings,
   getMessages,
   getReviews,
-  getTrades
+  getTrades,
+  getListingsByType
 } from '../firebase/firestoreMethods';
 
 import Loader from '../pages/Loading.jsx'
