@@ -11,7 +11,7 @@ import {
   where,
   orderBy,
   limit,
-  startAt,
+  startAfter,
   endAt
 } from "firebase/firestore";
 import { auth, db } from './index.js';
@@ -28,11 +28,12 @@ export const getListings = async (filters) => {
   try {
     let listings = [];
     const listingsCollection = collection(db, 'listings');
-    const data = query(listingsCollection, where(key, "==", value));
+    const data = query(listingsCollection, where(key, "==", value), limit(10));
     const querySnapshot = await getDocs(data);
     querySnapshot.forEach(doc => {
       listings.push(doc.data());
     })
+    console.log('listings', listings)
     return listings;
   } catch(err) {
     console.error(err.stack);
@@ -362,10 +363,22 @@ export const activateUser = async (user_id) => {
   }
 }
 
+//example pagination function
+let lastOnList = null;
 
-//paginate results
-//export const getAllListingsBy = async () => {
-//   const listingsCollection = collection(db, 'listings');
-//   const data = query(listingsCollection, orderBy(''));
-// };
+export const getListingsByType = async () => {
+  const listingsCollection = collection(db, 'listings');
+  const firstBatch = query(listingsCollection, orderBy('type'), startAfter(lastOnList || 0), limit(5));
+  const docSnapshot = await getDocs(firstBatch);
 
+  let listings = [];
+  docSnapshot.forEach(doc => {
+    listings.push(doc.data());
+  })
+
+  lastOnList = docSnapshot.docs[docSnapshot.docs.length - 1];
+
+  return listings;
+
+  // const nextBatch = query(listingsCollection, orderBy('type'), startAfter(lastOnList), limit(5))
+};
