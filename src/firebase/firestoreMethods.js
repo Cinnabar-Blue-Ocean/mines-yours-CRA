@@ -12,7 +12,8 @@ import {
   orderBy,
   limit,
   startAfter,
-  endAt
+  endAt,
+  documentId
 } from "firebase/firestore";
 import { auth, db } from './index.js';
 
@@ -20,6 +21,9 @@ import { auth, db } from './index.js';
 //Define queries
 
 //get listing by a specific filter
+
+let lastListing = null;
+
 export const getListings = async (filters) => {
   let parameters = Object.entries(filters);
   let key = parameters[0][0];
@@ -28,12 +32,12 @@ export const getListings = async (filters) => {
   try {
     let listings = [];
     const listingsCollection = collection(db, 'listings');
-    const data = query(listingsCollection, where(key, "==", value), limit(10));
+    const data = query(listingsCollection, where(key, "==", value), limit(5));
     const querySnapshot = await getDocs(data);
     querySnapshot.forEach(doc => {
       listings.push(doc.data());
     })
-    console.log('listings', listings)
+    lastListing = querySnapshot.docs[querySnapshot.docs.length - 1];
     return listings;
   } catch(err) {
     console.error(err.stack);
@@ -343,11 +347,11 @@ export const deleteReview = async (review_id) => {
 };
 
 //example pagination function
-let lastOnList = null;
+let lastItem = null;
 
-export const getListingsByType = async () => {
+export const orderListings = async (keyword) => {
   const listingsCollection = collection(db, 'listings');
-  const firstBatch = query(listingsCollection, orderBy('type'), startAfter(lastOnList || 0), limit(5));
+  const firstBatch = query(listingsCollection, orderBy(keyword), startAfter(lastItem || 0), limit(5));
   const docSnapshot = await getDocs(firstBatch);
 
   let listings = [];
@@ -355,7 +359,7 @@ export const getListingsByType = async () => {
     listings.push(doc.data());
   })
 
-  lastOnList = docSnapshot.docs[docSnapshot.docs.length - 1];
+  lastItem = docSnapshot.docs[docSnapshot.docs.length - 1];
 
   return listings;
 
