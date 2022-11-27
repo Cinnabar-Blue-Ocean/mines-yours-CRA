@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from '../../../firebase/'
+import { auth } from '../../../firebase/'
 import { reportListing, activateListing } from '../../../firebase/firestoreMethods.js';
 
 
-export default function ModalButtonBar() {
+export default function ModalButtonBar({ id }) {
   const [user, setUser] = useState(null)
   const [showReport, setShowReport] = useState(false)
   const [showTradeConfirmation, setShowTradeConfirmation] = useState()
@@ -20,7 +20,7 @@ export default function ModalButtonBar() {
   const sendReport = async () => {
     try {
       if (user) {
-
+        reportListing(id)
       } else {
         throw new Error('You must be logged in to report a listing')
       }
@@ -32,7 +32,7 @@ export default function ModalButtonBar() {
   const sendTrade = async () => {
     try {
       if (user) {
-
+        activateListing(id)
       } else {
         throw new Error('You must be logged in to start a trade')
       }

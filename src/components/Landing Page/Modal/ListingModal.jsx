@@ -19,11 +19,10 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  const {images, description} = props;
+  const {images, description, id} = props;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log('props', props.item)
 
   return (
     <div>
@@ -36,7 +35,7 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <SwipeableTextMobileStepper images={images} description={description}/>
-          {/* <ButtonBar /> */}
+          <ButtonBar id={id}/>
         </Box>
       </Modal>
     </div>
