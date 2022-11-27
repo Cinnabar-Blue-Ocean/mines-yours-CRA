@@ -159,6 +159,22 @@
 
 }
 
+.loadmore {
+  display: block;
+  margin: auto;
+  padding: 10px 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #1A936F;
+  background-color: transparent;
+  border-radius: 5%;
+  font-size: 15px;
+}
+
+.loadmore:hover {
+  cursor: pointer;
+}
+
 
 
 
