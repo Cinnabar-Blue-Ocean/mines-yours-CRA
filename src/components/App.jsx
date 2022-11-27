@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import LandingPage from './Landing Page/LandingPage'
 // import Navbar from './navbar/Navbar.jsx';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -23,18 +23,15 @@ import { AnimatePresence } from "framer-motion";
 import { useAuth } from '../firebase/authMethods.js';
 import { seedUsers, seedListings } from '../seedData/seedingFunctions';
 
-
-
 const App = () => {
   const location = useLocation();
-
   const [users, setUsers] = useState([]);
   const [listings, setListings] = useState([]);
   const [messages, setMessages] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
 
-  const {signIn, user} = useAuth();
+  const { signIn, user } = useAuth();
 
   // useEffect(() => {
   //   signIn('bobby@gmail.com', 'password123')
@@ -47,13 +44,13 @@ const App = () => {
   return (
     <Box>
       <AnimatePresence exitBeforeEnter>
-      <Routes key={location.pathname} location={location}>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/userInfo" element={<CollectUserInfo />} />
-        <Route path="/loading" element={<Loader />} />
-      </Routes>
+        <Routes key={location.pathname} location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/userInfo" element={<CollectUserInfo />} />
+          <Route path="/loading" element={<Loader />} />
+        </Routes>
       </AnimatePresence>
     </Box>
   );

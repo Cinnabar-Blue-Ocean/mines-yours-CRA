@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Trades from './Trades/Trades'
 import Sidebar from './Sidebar'
 import Pagination from '@mui/material/Pagination';
 import { getFirestore } from 'firebase/firestore';
-//import { getListings } from '../../firebase/getListings.js'
 import { findDistance } from '../../zipCodes/locationFinder.js'
 
 import {
@@ -16,23 +15,27 @@ import {
 } from '../../firebase/firestoreMethods';
 
 import { useAuth } from '../../firebase/authMethods.js';
-
 import { seedUsers, seedListings } from '../../seedData/seedingFunctions';
+import { DataContext } from '../../firebase/dataStore.jsx';
 
 const LandingPage = () => {
-  const [listings, setListings] = useState([])
+  const dataContext = useContext(DataContext);
+  const [listings, setListings] = useState([]);
+  const { signIn, user } = useAuth();
 
-  const {signIn, user} = useAuth();
+  // Example of how to use context API to access data.
+  console.log(listings);
 
   useEffect(() => {
     signIn('bobby@gmail.com', 'password123')
   }, []);
 
   useEffect(() => {
-    getListingsByType()
-      .then(data => {
-        setListings(data);
-      })
+    const loadData = async () => {
+      const contextListings = await dataContext.loadListings();
+      setListings(contextListings.slice(0,12));
+    }
+    loadData();
   }, []);
 
   // useEffect(() => {
@@ -46,9 +49,9 @@ const LandingPage = () => {
   return listings.length > 0 ? (
     <>
       <div id="landing-page">
-        <Sidebar setListings={setListings}/>
+        <Sidebar setListings={setListings} />
         <div id="trade-container">
-          <Trades listings={listings}/>
+          <Trades listings={listings} />
         </div>
         {listings.length > 9 ? (<Pagination count={10} />) : (null)}
       </div>

@@ -5,7 +5,7 @@ import { getListings } from './getListings.js';
 import { auth, googleProvider, db } from "./index.js";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const DataContext = createContext();
+export const DataContext = createContext();
 
 export function useData() {
   return useContext(DataContext);
