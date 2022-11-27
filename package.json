@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-swipeable-views": "^0.14.0",
     "rsuite": "^5.22.2",
+    "sass": "^1.56.1",
     "web-vitals": "^2.1.4",
     "zipcode-city-distance": "^1.0.6"
   },
@@ -54,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "firebase-tools": "^11.16.1"
   }
 }

@@ -8,16 +8,21 @@ import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
 
+import { withData } from '../firebase/dataStore.jsx';
 import {
   getUsers,
   getListings,
   getMessages,
   getReviews,
-  getTrades
+  getTrades,
+  getListingsByType
 } from '../firebase/firestoreMethods';
 
 import Loader from '../pages/Loading.jsx'
 import { AnimatePresence } from "framer-motion";
+
+import { useAuth } from '../firebase/authMethods.js';
+import { seedUsers, seedListings } from '../seedData/seedingFunctions';
 
 
 
@@ -30,22 +35,32 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
 
+  const { signIn, user } = useAuth();
+
+  // useEffect(() => {
+  //   signIn('bobby@gmail.com', 'password123')
+  // }, []);
+
+  // useEffect(() => {
+  //   seedListings();
+  // }, []);
+
   return (
     <Box>
       <AnimatePresence exitBeforeEnter>
-      <Routes key={location.pathname} location={location}>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/userInfo" element={<CollectUserInfo />} />
-        <Route path="/loading" element={<Loader />} />
-      </Routes>
+        <Routes key={location.pathname} location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/userInfo" element={<CollectUserInfo />} />
+          <Route path="/loading" element={<Loader />} />
+        </Routes>
       </AnimatePresence>
     </Box>
   );
 };
 
-export default App;
 
+export default withData(App);
 
 

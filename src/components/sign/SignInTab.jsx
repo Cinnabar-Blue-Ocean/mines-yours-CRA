@@ -93,7 +93,8 @@ function SignInTab() {
       await resetPassword(loginEmail);
       setMessage("Successfully sent email reset link");
     } catch (error) {
-      setError(error.message);
+      console.log(error)
+      setError(error.message.slice(10));
     }
 
     setLoading(false);
@@ -158,34 +159,27 @@ function SignInTab() {
           onClick={handleGoogleSignIn}
             variant="outlined">SignIn with Google</Button>
        <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handleSkip}>Skip as guest</Box>
-      {/* <Button
-        sx={{
-          m: 1,
-          width: '25ch'
-        }}
-        onClick={()=>navigate("/signUp", { replace: true })}
-          variant="outlined">SignUp</Button> */}
       </Stack>
       :
-      <Box
+      <Stack
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        display: "flex",
+        gap:'25px',
         flexDirection: "column",
-        mb: '2em'
+        justifyContent:'center',
+        alignItems:'center'
       }}
       noValidate
       autoComplete="off"
       >
-      <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px'}}>WelCome Back: {user?.email}</Box>
+      <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px',textAlign:'center'}}>WelCome Back: {user?.email}</Box>
       <SignOut style={{
-            m: 1,
-            mt: 5,
-            width: '25ch'
+            border:'1px solid green',
+            color:'green',
+            width: '300px'
           }}/>
        <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handleSkip}>Go to the home</Box>
-      </Box>
+      </Stack>
       }
       </>
   );

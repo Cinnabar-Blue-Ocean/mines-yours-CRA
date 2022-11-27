@@ -1,10 +1,17 @@
-# Mine Yours
+# Mines Yours
 
 A barter marketplace. Connecting the community in order to make a better world
 
 > ### Group members<br>
+[Mark Clark](https://github.com/fitDizzle)
+[Justin Turkaly](https://github.com/JustinTurkaly)
+[Xincheng Zhou](https://github.com/Alexxx125)
+[Cameron Montgomery](https://github.com/Tribalash)
+[Nick Amenda](https://github.com/nickamenda/)
+[Jonathan Navarrete](https://github.com/Ragnaric)
+[Jonathan Liang](https://github.com/jliang158)
 
-
+[^1]: Click on name to checkout team members GitHub
 ## Table of Contents
 
 1. [Description](#description)
@@ -17,10 +24,11 @@ A barter marketplace. Connecting the community in order to make a better world
 
 ## Description
 
-
+Mines Yours is a barter marketplace seeking to build community, lower waste and build a better world. Sign in with your favorite account, browse listings, message owners, set up trades and get email notifications when your trade is coming to an end. Mines Yours was the final project at the Hack Reactor Advanced Software Immersive. Group members worked in an Agile environment over the course of a week with a client to design, build, and deploy this "Offer Up" or "Facebook Marketplace" clone.
 
 ## Technical Overview
 
+Mines Yours is built with React, Express, Node.js, and Firebase.
 
 ## Usage
 In order to run the project locally please read [Requirements](#requirements) section for instructions setting up a local .env and for installing dependencies. Find further instructions for setting up the project for development or production in the [Development](#development) and [Production](#production) sections.
@@ -33,6 +41,7 @@ Node.js - version 16.0+
 ### Installing Dependencies
 From within the root directory:
 > 1. Run ```npm install``` to install all required dependencies
+
 
 ## Firestore Methods
 

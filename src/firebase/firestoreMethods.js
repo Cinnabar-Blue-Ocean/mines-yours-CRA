@@ -11,8 +11,9 @@ import {
   where,
   orderBy,
   limit,
-  startAt,
-  endAt
+  startAfter,
+  endAt,
+  documentId
 } from "firebase/firestore";
 import { auth, db } from './index.js';
 
@@ -20,6 +21,9 @@ import { auth, db } from './index.js';
 //Define queries
 
 //get listing by a specific filter
+
+let lastListing = null;
+
 export const getListings = async (filters) => {
   let parameters = Object.entries(filters);
   let key = parameters[0][0];
@@ -28,13 +32,14 @@ export const getListings = async (filters) => {
   try {
     let listings = [];
     const listingsCollection = collection(db, 'listings');
-    const data = query(listingsCollection, where(key, "==", value));
+    const data = query(listingsCollection, where(key, "==", value), limit(5));
     const querySnapshot = await getDocs(data);
     querySnapshot.forEach(doc => {
       listings.push(doc.data());
     })
+    lastListing = querySnapshot.docs[querySnapshot.docs.length - 1];
     return listings;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -54,7 +59,7 @@ export const getUsers = async (filters) => {
       user.push(doc.data());
     })
     return user;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -74,7 +79,7 @@ export const getMessages = async (filters) => {
       messages.push(doc.data());
     })
     return messages;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -94,7 +99,7 @@ export const getReviews = async (filters) => {
       reviews.push(doc.data());
     })
     return reviews;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -114,7 +119,7 @@ export const getTrades = async (filters) => {
       trades.push(doc.data());
     })
     return trades;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -166,7 +171,7 @@ export const approveTrade = async (trade_id) => {
     if (!trade) {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
-      await updateTrade(trade_id, {status: "active"})
+      await updateTrade(trade_id, { status: "active" })
       return 'Trade approved'
     }
   } catch (err) {
@@ -181,7 +186,7 @@ export const cancelTrade = async (trade_id) => {
     if (!trade) {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
-      await updateTrade(trade_id, {status: "canceled"})
+      await updateTrade(trade_id, { status: "canceled" })
       return 'Trade canceled'
     }
   } catch (err) {
@@ -234,7 +239,7 @@ export const reportListing = async (listing_id) => {
     if (!listing) {
       throw new Error('Could not find listing with id: ', listing_id)
     } else {
-      await updateListing(listing_id, {status: "reported"})
+      await updateListing(listing_id, { status: "reported" })
       return 'listing has been reported'
     }
   } catch (err) {
@@ -249,7 +254,7 @@ export const activateListing = async (listing_id) => {
     if (!listing) {
       throw new Error('Could not find listing with id: ', listing_id)
     } else {
-      await updateListing(listing_id, {status: "active"})
+      await updateListing(listing_id, { status: "active" })
       return 'listing has been activated'
     }
   } catch (err) {
@@ -275,7 +280,7 @@ export const deleteListing = async (listing_id) => {
 export const postReview = async (trade_id, poster_id, rating, description) => {
   try {
     const trade = await getTradeById(trade_id)
-    console.log('trade',trade)
+    console.log('trade', trade)
     if (!trade) {
       throw new Error('Could not find trade with id, ', trade_id)
     } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
@@ -339,7 +344,7 @@ export const reportUser = async (user_id) => {
     if (!user) {
       throw new Error('Could not find user with id: ', user_id)
     } else {
-      await updateUser(user_id, {status: "reported"})
+      await updateUser(user_id, { status: "reported" })
       return 'User has been reported'
     }
   } catch (err) {
@@ -354,7 +359,7 @@ export const activateUser = async (user_id) => {
     if (!user) {
       throw new Error('Could not find user with id: ', user_id)
     } else {
-      await updateUser(user_id, {status: "active"})
+      await updateUser(user_id, { status: "active" })
       return 'User has been activated'
     }
   } catch (err) {
@@ -362,10 +367,21 @@ export const activateUser = async (user_id) => {
   }
 }
 
+//example pagination function
+let lastItem = null;
 
-//paginate results
-//export const getAllListingsBy = async () => {
-//   const listingsCollection = collection(db, 'listings');
-//   const data = query(listingsCollection, orderBy(''));
-// };
+export const orderListings = async (keyword) => {
+  const listingsCollection = collection(db, 'listings');
+  const firstBatch = query(listingsCollection, orderBy(keyword), startAfter(lastItem || 0), limit(5));
+  const docSnapshot = await getDocs(firstBatch);
 
+  let listings = [];
+  docSnapshot.forEach(doc => {
+    listings.push(doc.data());
+  })
+
+  lastItem = docSnapshot.docs[docSnapshot.docs.length - 1];
+  return listings;
+
+  // const nextBatch = query(listingsCollection, orderBy('type'), startAfter(lastOnList), limit(5))
+};
