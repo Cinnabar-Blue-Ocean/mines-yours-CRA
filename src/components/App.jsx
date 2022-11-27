@@ -7,7 +7,7 @@ import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
-import { withData } from '../firebase/dataStore.jsx';
+// import { withData } from '../firebase/dataStore.jsx';
 
 import {
   getUsers,
@@ -60,7 +60,7 @@ const App = () => {
   );
 };
 
-export default withData(App);
-
+// export default withData(App); // Jon - I changed this because it wasn't working for me
+export default App;
 
 
