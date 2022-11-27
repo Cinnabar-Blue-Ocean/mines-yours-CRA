@@ -1,4 +1,4 @@
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, updateDoc} from 'firebase/firestore';
 import {auth, db} from '../firebase/index.js';
 
 export const generateUser = () => {
@@ -86,7 +86,7 @@ export const createListing = async (name, description, owner_id, photos, status,
 export const seedUsers = () => {
   let totalUsers = [];
 
-  while (totalUsers.length < 50) {
+  while (totalUsers.length < 30) {
     totalUsers.push(generateUser());
   }
 
@@ -100,13 +100,31 @@ export const seedUsers = () => {
 export const seedListings = () => {
   let totalListings = [];
 
-  while (totalListings.length < 50) {
+  while (totalListings.length < 30) {
     totalListings.push(generateListing());
   }
 
   totalListings.forEach(item => {
-    createListing(item.name, item.description, item.owner_id, item.photos, item.status, item.type, item.start_date, item.end_date, item.zip_code, item.reviews)
+    postListing(item.name, item.description, item.photos, item.type, item.start_date, item.end_date, item.zip_code, item.reviews)
   });
 
   return totalListings;
+}
+
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code, reviews) => {
+  const docRef = await addDoc(collection(db, 'listings'), {
+    name,
+    description,
+    photos,
+    status: 'active',
+    type,
+    start_date,
+    end_date,
+    owner_id: auth.currentUser.uid,
+    zip_code,
+    reviews
+  })
+  const id = docRef.id
+  await updateDoc(docRef, {listing_id: id})
+  return docRef
 }

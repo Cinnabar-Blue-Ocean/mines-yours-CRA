@@ -32,7 +32,7 @@ export const getListings = async (filters) => {
   try {
     let listings = [];
     const listingsCollection = collection(db, 'listings');
-    const data = query(listingsCollection, where(key, "==", value), limit(5));
+    const data = query(listingsCollection, where(key, "==", value), orderBy('type'), limit(5));
     const querySnapshot = await getDocs(data);
     querySnapshot.forEach(doc => {
       listings.push(doc.data());
@@ -219,7 +219,7 @@ export const getListingById = async (listing_id) => {
 }
 
 //post a listing
-export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code, reviews) => {
   const docRef = await addDoc(collection(db, 'listings'), {
     name,
     description,
@@ -229,7 +229,8 @@ export const postListing = async (name, description, photos = [], type, start_da
     start_date,
     end_date,
     owner_id: auth.currentUser.uid,
-    zip_code
+    zip_code,
+    reviews
   })
   const id = docRef.id
   await updateDoc(docRef, {listing_id: id})

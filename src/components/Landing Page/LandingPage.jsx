@@ -27,12 +27,19 @@ const LandingPage = () => {
   }, []);
 
   useEffect(() => {
-    const loadData = async () => {
-      const contextListings = await dataContext.loadListings();
-      setListings(contextListings.slice(0, 12));
-    }
-    loadData();
-  }, [listings]);
+    getListings({name: 'car'})
+      .then(data => {
+        setListings(data);
+      })
+  }, []);
+
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     const contextListings = await dataContext.loadListings();
+  //     setListings(contextListings.slice(0, 12));
+  //   }
+  //   loadData();
+  // }, []);
 
   // useEffect(() => {
   //   getListings()
@@ -52,7 +59,7 @@ const LandingPage = () => {
         {listings.length > 9 ? (<Pagination count={10} />) : (null)}
       </div>
       <button onClick={() => {
-        orderListings('status')
+        getListings({name: 'car'})
           .then(data => {
             let moreResults = listings.slice();
             let finalResults = moreResults.concat(data);
