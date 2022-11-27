@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider, useAuth } from "./firebase/authMethods.js";
-import { DataProvider } from './firebase/dataStore.jsx';
 
 import App from './components/App';
 
@@ -11,11 +10,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <DataProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </DataProvider>
+     <AuthProvider>
+      <App />
+      </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode >,
+  </React.StrictMode>,
 );

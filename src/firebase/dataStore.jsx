@@ -7,11 +7,11 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const DataContext = createContext();
 
-export function useData() {
+function useData() {
   return useContext(DataContext);
 }
 
-export function DataProvider({ children }) {
+function DataProvider({ children }) {
   const [listings, setListings] = useState(null);
   const [usersMessages, setUsersMessages] = useState(null);
   const [usersReviews, setUsersReviews] = useState(null);
@@ -63,3 +63,11 @@ export function DataProvider({ children }) {
     </DataContext.Provider>
   );
 }
+
+export const withData = (Child) => (props) => {
+  return (<DataContext.Consumer>
+    {(context) => <Child {...props} {...context} />}
+  </DataContext.Consumer>)
+};
+
+export default { DataProvider, withData };
