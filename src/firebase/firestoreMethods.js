@@ -220,7 +220,7 @@ export const getListingById = async (listing_id) => {
 
 //post a listing
 export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
-  return await addDoc(collection(db, 'listings'), {
+  const docRef = await addDoc(collection(db, 'listings'), {
     name,
     description,
     photos,
@@ -231,7 +231,11 @@ export const postListing = async (name, description, photos = [], type, start_da
     owner_id: auth.currentUser.uid,
     zip_code
   })
+  const id = docRef.id
+  await updateDoc(docRef, {listing_id: id})
+  return docRef
 }
+
 //report a listing
 export const reportListing = async (listing_id) => {
   try {

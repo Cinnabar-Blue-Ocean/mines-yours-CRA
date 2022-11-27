@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import SwipeableTextMobileStepper from './Images'
+import ButtonBar from './ModalButtonBar';
 
 const style = {
   position: 'absolute',
@@ -18,7 +19,7 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  const {images, description} = props;
+  const {images, description, id} = props;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,6 +35,7 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <SwipeableTextMobileStepper images={images} description={description}/>
+          <ButtonBar id={id}/>
         </Box>
       </Modal>
     </div>
