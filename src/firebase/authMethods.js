@@ -60,6 +60,10 @@ export function AuthProvider({ children }) {
     return getDoc(doc(db, "users", id));
   }
 
+  function addChat() {
+    return setDoc(doc(db, "userChats", user.uid), {});
+  }
+
 
   // function updateEmail(email) {
   //   return user.updateEmail(email);
@@ -77,7 +81,8 @@ export function AuthProvider({ children }) {
     signOutUser,
     resetPassword,
     addData,
-    findData
+    findData,
+    addChat
     // updateEmail,
     // updatePassword,
   };
