@@ -22,9 +22,9 @@ const LandingPage = () => {
   const [listings, setListings] = useState([])
   const { signIn, user } = useAuth();
 
-  useEffect(() => {
-    signIn('bobby@gmail.com', 'password123')
-  }, []);
+  // useEffect(() => {
+  //   signIn('bobby@gmail.com', 'password123')
+  // }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,7 +32,7 @@ const LandingPage = () => {
       setListings(contextListings.slice(0, 12));
     }
     loadData();
-  }, [listings]);
+  }, []);
 
   // useEffect(() => {
   //   getListings()
