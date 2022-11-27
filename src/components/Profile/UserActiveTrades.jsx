@@ -91,7 +91,7 @@ const UserActiveTrades = () => {
         <div style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 20, marginRight: 15 }}>
           Trades
         </div>
-        <Button variant="outlined" style={{ backgoundColor: 'black', marginRight: 6 }}>
+        <Button variant="outlined" style={{ backgoundColor: 'black', marginRight: 6 }} onClick={()=>{}}>
           Active Trades
         </Button>
         <Button variant="outlined" style={{ backgoundColor: 'black' }}>
