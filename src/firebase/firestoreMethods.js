@@ -346,7 +346,7 @@ export const deleteReview = async (review_id) => {
   return await deleteDoc(doc(db, 'reviews', review_id));
 };
 
-//example pagination function
+//paginate sorted results
 let lastItem = null;
 
 export const orderListings = async (keyword) => {
