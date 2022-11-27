@@ -1,5 +1,8 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../firebase/authMethods.js";
+
 import logo from '../../media/logo-no-background.png';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,14 +20,22 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
-const pages = ['Home', 'Profile', 'Listings', 'Sign in', 'New Listing'];
-const settings = ['Account', 'Logout'];
-const urlMap = ['/', '/profile/:userId', '/listings', '/signIn', '/'];
-//
-function Navbar() {
+const pages = ['Home', 'Profile', 'Listings', 'New Listing'];
+const urlMap = ['/', '/profile/:userId', '/', '/'];
+
+const settings = ['Account', 'Logout', 'Login', 'Register'];
+const settingsMap = ['/profile/:userId', '/signIn', '/signIn', '/signIn'];
+
+function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+
+  const { user, signOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
 
   const handleOpen = () => setOpen(true);
@@ -34,6 +45,22 @@ function Navbar() {
       handleOpen()
     }
   }
+
+  const handleSignOut = async (e) => {
+    e.preventDefault()
+    try {
+      await signOutUser()
+      setLoading(true);
+      console.log(user)
+      navigate(`/loading`, { replace: true })
+      await setTimeout(fun => {
+        navigate(`/`, { replace: true })
+      }, 600)
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -111,7 +138,7 @@ function Navbar() {
                 <Link to={urlMap[idx]} key={page} style={{ textDecoration: 'none' }}>
                   <Button
                     key={page}
-                    onClick={()=>{handleModalOpen(page)}}
+                    onClick={() => { handleModalOpen(page) }}
                     sx={{ my: 2, color: '#398378', display: 'block' }}
                   >
                     {page}
@@ -127,7 +154,7 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" style={{ color: 'green' }} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -146,11 +173,16 @@ function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
+                {settings.map((setting, idx) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Link to={settingsMap[idx]} key={setting} style={{ textDecoration: 'none' }}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </Link>
                   </MenuItem>
                 ))}
+                {/* <Button textAlign="center" onClick={handleSignOut} style={{ textDecoration: 'none' }}>
+                  <Typography textAlign="center">Logout</Typography>
+                </Button> */}
               </Menu>
             </Box>
           </Toolbar>

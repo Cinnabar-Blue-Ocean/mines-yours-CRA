@@ -7,6 +7,7 @@ import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
+import { withData } from '../firebase/dataStore.jsx';
 
 import {
   getUsers,
@@ -34,7 +35,7 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
 
-  const {signIn, user} = useAuth();
+  const { signIn, user } = useAuth();
 
   // useEffect(() => {
   //   signIn('bobby@gmail.com', 'password123')
@@ -47,19 +48,19 @@ const App = () => {
   return (
     <Box>
       <AnimatePresence exitBeforeEnter>
-      <Routes key={location.pathname} location={location}>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/userInfo" element={<CollectUserInfo />} />
-        <Route path="/loading" element={<Loader />} />
-      </Routes>
+        <Routes key={location.pathname} location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/userInfo" element={<CollectUserInfo />} />
+          <Route path="/loading" element={<Loader />} />
+        </Routes>
       </AnimatePresence>
     </Box>
   );
 };
 
-export default App;
+export default withData(App);
 
 
 
