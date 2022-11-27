@@ -1,21 +1,22 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { doc, collection, setDoc, getDoc } from "firebase/firestore";
-import { getMessages, getReviews, getTrades } from './firestoreMethods.js';
+import { getMessages, getReviews, getTrades, orderListings } from './firestoreMethods.js';
 import { getListings } from './getListings.js';
 import { auth, googleProvider, db } from "./index.js";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const DataContext = createContext();
+export const DataContext = createContext();
 
 function useData() {
   return useContext(DataContext);
 }
 
-function DataProvider({ children }) {
-  const [listings, setListings] = useState(null);
-  const [usersMessages, setUsersMessages] = useState(null);
-  const [usersReviews, setUsersReviews] = useState(null);
-  const [usersTrades, setUsersTrades] = useState(null);
+export function DataProvider({ children }) {
+  const [listings, setListings] = useState([]);
+  const [usersMessages, setUsersMessages] = useState([]);
+  const [usersReviews, setUsersReviews] = useState([]);
+  const [usersTrades, setUsersTrades] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function DataProvider({ children }) {
 
   useEffect(() => {
     const loadData = async () => {
-      const allListings = await getListings();
+      const allListings = await orderListings('status');
       const messages = await getMessages({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
       const reviews = await getReviews({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
       const trades = await getTrades({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
@@ -64,10 +65,4 @@ function DataProvider({ children }) {
   );
 }
 
-export const withData = (Child) => (props) => {
-  return (<DataContext.Consumer>
-    {(context) => <Child {...props} {...context} />}
-  </DataContext.Consumer>)
-};
-
-export default { DataProvider, withData };
+export default { DataContext, DataProvider };
