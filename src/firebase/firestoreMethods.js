@@ -39,7 +39,7 @@ export const getListings = async (filters) => {
     })
     lastListing = querySnapshot.docs[querySnapshot.docs.length - 1];
     return listings;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -59,7 +59,7 @@ export const getUsers = async (filters) => {
       user.push(doc.data());
     })
     return user;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -79,7 +79,7 @@ export const getMessages = async (filters) => {
       messages.push(doc.data());
     })
     return messages;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -99,7 +99,7 @@ export const getReviews = async (filters) => {
       reviews.push(doc.data());
     })
     return reviews;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
@@ -119,32 +119,12 @@ export const getTrades = async (filters) => {
       trades.push(doc.data());
     })
     return trades;
-  } catch(err) {
+  } catch (err) {
     console.error(err.stack);
   }
 };
 
-//get a specific listing
-export const getListingById = async (listing_id) => {
-  let docSnap = await getDoc(doc(db, 'listings', listing_id))
-  if (docSnap.exists()) {
-    return docSnap.data()
-  } else {
-    console.log('Could not find listing with id: ', listing_id)
-    return null;
-  }
-  try {
-    let docSnap = await getDoc(doc(db, 'trades', listing_id))
-    if (docSnap.exists()) {
-      return docSnap.data()
-    } else {
-      console.log('Could not find trade with id: ', listing_id)
-      return null;
-    }
-  } catch (err) {
-    console.log('Error getting trade: ', err.message)
-  }
-}
+// ------ Trades ------- //
 
 //get a trade
 export const getTradeById = async (trade_id) => {
@@ -158,31 +138,6 @@ export const getTradeById = async (trade_id) => {
     }
   } catch (err) {
     console.log('Error getting trade: ', err.message)
-  }
-}
-
-//post a review
-export const postReview = async (trade_id, poster_id, rating, description) => {
-  try {
-    const trade = await getTradeById(trade_id)
-    console.log('trade',trade)
-    if (!trade) {
-      throw new Error('Could not find trade with id, ', trade_id)
-    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
-      throw new Error('Reviews must be from a party of the trade')
-    } else {
-      const data = {
-        trade_id,
-        poster_id,
-        rating,
-        description
-      }
-      let docRef = await addDoc(collection(db, 'reviews'), data)
-      return docRef.id
-    }
-
-  } catch (err) {
-    console.log('Error creating review: ', err.message)
   }
 }
 
@@ -216,7 +171,7 @@ export const approveTrade = async (trade_id) => {
     if (!trade) {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
-      await updateTrade(trade_id, {status: "active"})
+      await updateTrade(trade_id, { status: "active" })
       return 'Trade approved'
     }
   } catch (err) {
@@ -231,12 +186,54 @@ export const cancelTrade = async (trade_id) => {
     if (!trade) {
       throw new Error('Could not find trade with id: ', trade_id)
     } else {
-      await updateTrade(trade_id, {status: "canceled"})
-      return 'Trade approved'
+      await updateTrade(trade_id, { status: "canceled" })
+      return 'Trade canceled'
     }
   } catch (err) {
     console.log('Error canceling trade: ', err.message)
   }
+}
+
+// update a trade
+export const updateTrade = async (trade_id, data) => {
+  const docRef = await doc(db, 'trades', trade_id)
+  return await updateDoc(docRef, data)
+}
+
+
+// ------ Listings ------- //
+
+//get a specific listing
+export const getListingById = async (listing_id) => {
+  try {
+    let docSnap = await getDoc(doc(db, 'listings', listing_id))
+    if (docSnap.exists()) {
+      return docSnap.data()
+    } else {
+      console.log('Could not find listing with id: ', listing_id)
+      return null;
+    }
+  } catch (err) {
+    console.log('Error getting listing: ', err.message)
+  }
+}
+
+//post a listing
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
+  const docRef = await addDoc(collection(db, 'listings'), {
+    name,
+    description,
+    photos,
+    status: 'active',
+    type,
+    start_date,
+    end_date,
+    owner_id: auth.currentUser.uid,
+    zip_code
+  })
+  const id = docRef.id
+  await updateDoc(docRef, {listing_id: id})
+  return docRef
 }
 
 //report a listing
@@ -246,7 +243,7 @@ export const reportListing = async (listing_id) => {
     if (!listing) {
       throw new Error('Could not find listing with id: ', listing_id)
     } else {
-      await updateTrade(listing_id, {status: "reported"})
+      await updateListing(listing_id, { status: "reported" })
       return 'listing has been reported'
     }
   } catch (err) {
@@ -255,7 +252,73 @@ export const reportListing = async (listing_id) => {
 }
 
 // activate listing
+export const activateListing = async (listing_id) => {
+  try {
+    const listing = await getListingById(listing_id);
+    if (!listing) {
+      throw new Error('Could not find listing with id: ', listing_id)
+    } else {
+      await updateListing(listing_id, { status: "active" })
+      return 'listing has been activated'
+    }
+  } catch (err) {
+    console.log('Error activating: ', err.message)
+  }
+}
 
+//update a listing
+export const updateListing = async (listing_id, data) => {
+  const docRef = await doc(db, 'listings', listing_id)
+  return await updateDoc(docRef, data)
+}
+
+//delete a listing
+export const deleteListing = async (listing_id) => {
+  return await deleteDoc(doc(db, 'listings', listing_id))
+};
+
+
+// ------ Reviews ------- //
+
+//post a review
+export const postReview = async (trade_id, poster_id, rating, description) => {
+  try {
+    const trade = await getTradeById(trade_id)
+    console.log('trade', trade)
+    if (!trade) {
+      throw new Error('Could not find trade with id, ', trade_id)
+    } else if (poster_id !== trade.owner_id && poster_id !== trade.receiver_id) {
+      throw new Error('Reviews must be from a party of the trade')
+    } else {
+      const data = {
+        trade_id,
+        poster_id,
+        rating,
+        description
+      }
+      let docRef = await addDoc(collection(db, 'reviews'), data)
+      return docRef.id
+    }
+
+  } catch (err) {
+    console.log('Error creating review: ', err.message)
+  }
+}
+
+//update a review
+export const updateReview = async (review_id, data) => {
+  const docRef = await doc(db, 'reviews', review_id)
+  return await updateDoc(docRef, data)
+}
+
+
+//delete a review
+export const deleteReview = async (review_id) => {
+  return await deleteDoc(doc(db, 'reviews', review_id));
+};
+
+
+// ------ Users ------- //
 
 // get a user by id
 export const getUserById = async (user_id) => {
@@ -272,6 +335,12 @@ export const getUserById = async (user_id) => {
   }
 }
 
+//update user info
+export const updateUser = async (user_id, data) => {
+  const docRef = await doc(db, 'users', user_id)
+  return await updateDoc(docRef, data)
+}
+
 // report a user
 export const reportUser = async (user_id) => {
   try {
@@ -279,7 +348,7 @@ export const reportUser = async (user_id) => {
     if (!user) {
       throw new Error('Could not find user with id: ', user_id)
     } else {
-      await updateUser(user_id, {status: "reported"})
+      await updateUser(user_id, { status: "reported" })
       return 'User has been reported'
     }
   } catch (err) {
@@ -294,57 +363,13 @@ export const activateUser = async (user_id) => {
     if (!user) {
       throw new Error('Could not find user with id: ', user_id)
     } else {
-      await updateUser(user_id, {status: "active"})
+      await updateUser(user_id, { status: "active" })
       return 'User has been activated'
     }
   } catch (err) {
     console.log('Error activating user: ', err.message)
   }
 }
-
-//post a listing
-export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
-  return await addDoc(collection(db, 'listings'), {
-    name,
-    description,
-    photos,
-    status: 'active',
-    type,
-    start_date,
-    end_date,
-    owner_id: auth.currentUser.uid,
-    zip_code
-  })
-}
-
-//update user info
-export const updateUser = async (user_id, data) => {
-  const docRef = await doc(db, 'users', user_id)
-  return await updateDoc(docRef, data)
-}
-//update a review
-
-// update a trade
-export const updateTrade = async (trade_id, data) => {
-  const docRef = await doc(db, 'trades', trade_id)
-  return await updateDoc(docRef, data)
-}
-
-//update a listing
-export const updateListing = async (listing_id, data) => {
-  const docRef = await doc(db, 'listings', listing_id)
-  return await updateDoc(docRef, data)
-}
-
-//delete a listing
-export const deleteListing = async (listing_id) => {
-  return await deleteDoc(doc(db, 'listings', listing_id))
-};
-
-//delete a review
-export const deleteReview = async (review_id) => {
-  return await deleteDoc(doc(db, 'reviews', review_id));
-};
 
 //paginate sorted results
 let lastItem = null;
@@ -360,7 +385,6 @@ export const orderListings = async (keyword) => {
   })
 
   lastItem = docSnapshot.docs[docSnapshot.docs.length - 1];
-
   return listings;
 
   // const nextBatch = query(listingsCollection, orderBy('type'), startAfter(lastOnList), limit(5))

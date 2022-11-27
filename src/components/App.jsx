@@ -5,10 +5,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
-import SignUp from '../pages/SignUp.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
 
+import { useData } from '../firebase/dataStore.jsx';
 import {
   getUsers,
   getListings,
@@ -35,7 +35,7 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [trades, setTrades] = useState([]);
 
-  const {signIn, user} = useAuth();
+  const { signIn, user } = useAuth();
 
   // useEffect(() => {
   //   signIn('bobby@gmail.com', 'password123')
@@ -52,7 +52,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/signUp" element={<SignUp />} />
           <Route path="/userInfo" element={<CollectUserInfo />} />
           <Route path="/loading" element={<Loader />} />
         </Routes>
@@ -61,7 +60,7 @@ const App = () => {
   );
 };
 
-export default App;
 
+export default (App);
 
 
