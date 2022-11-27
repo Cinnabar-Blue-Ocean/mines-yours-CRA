@@ -3,7 +3,6 @@ import Trades from './Trades/Trades'
 import Sidebar from './Sidebar'
 import Pagination from '@mui/material/Pagination';
 import { getFirestore } from 'firebase/firestore';
-//import { getListings } from '../../firebase/getListings.js'
 import { findDistance } from '../../zipCodes/locationFinder.js'
 
 import {
@@ -12,12 +11,10 @@ import {
   getMessages,
   getReviews,
   getTrades,
-  getListingsByType
+  orderListings
 } from '../../firebase/firestoreMethods';
 
 import { useAuth } from '../../firebase/authMethods.js';
-
-import { seedUsers, seedListings } from '../../seedData/seedingFunctions';
 
 const LandingPage = () => {
   const [listings, setListings] = useState([])
@@ -29,7 +26,7 @@ const LandingPage = () => {
   }, []);
 
   useEffect(() => {
-    getListingsByType()
+    orderListings('status')
       .then(data => {
         setListings(data);
       })
@@ -53,7 +50,7 @@ const LandingPage = () => {
         {listings.length > 9 ? (<Pagination count={10} />) : (null)}
       </div>
       <button onClick={() => {
-        getListingsByType()
+        orderListings('status')
           .then(data => {
             let moreResults = listings.slice();
             let finalResults = moreResults.concat(data);
