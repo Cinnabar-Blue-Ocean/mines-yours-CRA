@@ -32,7 +32,7 @@ const LandingPage = () => {
       setListings(contextListings.slice(0, 12));
     }
     loadData();
-  }, [listings]);
+  }, []);
 
   // useEffect(() => {
   //   getListings()

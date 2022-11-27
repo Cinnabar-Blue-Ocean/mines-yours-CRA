@@ -36,7 +36,7 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <SwipeableTextMobileStepper images={images} description={description}/>
-          <ButtonBar />
+          {/* <ButtonBar /> */}
         </Box>
       </Modal>
     </div>
