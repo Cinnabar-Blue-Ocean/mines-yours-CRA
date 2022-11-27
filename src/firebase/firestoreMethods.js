@@ -371,7 +371,7 @@ export const activateUser = async (user_id) => {
   }
 }
 
-//example pagination function
+//paginate sorted results
 let lastItem = null;
 
 export const orderListings = async (keyword) => {
