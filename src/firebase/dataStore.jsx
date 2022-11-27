@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export const DataContext = createContext();
 
-function useData() {
+export function useData() {
   return useContext(DataContext);
 }
 
@@ -16,7 +16,6 @@ export function DataProvider({ children }) {
   const [usersMessages, setUsersMessages] = useState([]);
   const [usersReviews, setUsersReviews] = useState([]);
   const [usersTrades, setUsersTrades] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
