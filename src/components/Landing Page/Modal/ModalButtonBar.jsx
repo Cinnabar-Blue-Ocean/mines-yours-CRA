@@ -3,11 +3,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from '../../../firebase/'
+import { reportListing, activateListing } from '../../../firebase/firestoreMethods.js';
 
 
 export default function ModalButtonBar() {
   const [user, setUser] = useState(null)
   const [showReport, setShowReport] = useState(false)
+  const [showTradeConfirmation, setShowTradeConfirmation] = useState()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -15,26 +17,50 @@ export default function ModalButtonBar() {
     });
   }, [])
 
-  const style = {
-    color: '#31c48d'
+  const sendReport = async () => {
+    try {
+      if (user) {
+
+      } else {
+        throw new Error('You must be logged in to report a listing')
+      }
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  const sendTrade = async () => {
+    try {
+      if (user) {
+
+      } else {
+        throw new Error('You must be logged in to start a trade')
+      }
+    } catch (err) {
+      console.log(err.message)
+    }
   }
 
   return (
-    // <Stack spacing={2} direction="row">
     <>
-
-      <Stack sx={style} spacing={2} direction="column">
-      <Button variant="outlined">Outlined</Button>
+      <Stack spacing={2} direction="column">
+        <Button variant="outlined" onClick={e => setShowTradeConfirmation(!showTradeConfirmation)}>Start Trade</Button>
+        {showTradeConfirmation ? <>
+          You're about to start a trade with the owner, continue?
+          <Stack spacing={2} direction="row">
+            <Button variant="text" onClick={sendTrade}>Yes</Button>
+            <Button variant="text" onClick={e => setShowTradeConfirmation(false)}>Cancel</Button>
+          </Stack>
+        </> : null}
         <Button variant="outlined" onClick={e => setShowReport(!showReport)}>Report Listing</Button>
         {showReport ? <>
           Are you sure you wish to report this listing?
           <Stack spacing={2} direction="row">
-            <Button variant="text">Yes</Button>
+            <Button variant="text" onClick={sendReport}>Yes</Button>
             <Button variant="text" onClick={e => setShowReport(false)}>Cancel</Button>
           </Stack>
         </> : null}
       </Stack>
       </>
-    // </Stack>
   );
 }
