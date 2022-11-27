@@ -15,11 +15,17 @@ export default function ModalButtonBar() {
     });
   }, [])
 
+  const style = {
+    color: '#31c48d'
+  }
+
   return (
-    <Stack spacing={2} direction="row">
+    // <Stack spacing={2} direction="row">
+    <>
+
+      <Stack sx={style} spacing={2} direction="column">
       <Button variant="outlined">Outlined</Button>
-      <Stack spacing={2} direction="column">
-        <Button variant="outlined" onClick={e => setShowReport(true)}>Report Listing</Button>
+        <Button variant="outlined" onClick={e => setShowReport(!showReport)}>Report Listing</Button>
         {showReport ? <>
           Are you sure you wish to report this listing?
           <Stack spacing={2} direction="row">
@@ -28,6 +34,7 @@ export default function ModalButtonBar() {
           </Stack>
         </> : null}
       </Stack>
-    </Stack>
+      </>
+    // </Stack>
   );
 }
