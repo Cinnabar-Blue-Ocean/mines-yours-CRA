@@ -34,6 +34,14 @@ const LandingPage = () => {
     loadData();
   }, []);
 
+  // useEffect(() => {
+  //   getListings()
+  //   .then((data) => {
+  //     setListings(data);
+  //   })
+  //   // findDistance(61080, 61073)
+  // }, [])
+
   return listings.length > 0 ? (
     <>
       <div id="landing-page">
