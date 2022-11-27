@@ -7,8 +7,8 @@ import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
+// import { withData } from '../firebase/dataStore.jsx';
 
-import { useData } from '../firebase/dataStore.jsx';
 import {
   getUsers,
   getListings,
@@ -61,6 +61,6 @@ const App = () => {
 };
 
 
-export default (App);
+export default App;
 
 
