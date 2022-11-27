@@ -60,6 +60,7 @@ export default function AddListingModal({ open, handleClose }) {
   const [preview, setPreview] = useState(false);
 
   const samplePhoto = 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
+  const sample = 'https://images.unsplash.com/photo-1668778803410-3a9b3132a5ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDF8QkpKTXR0ZURKQTR8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
 
 
 
@@ -106,7 +107,7 @@ export default function AddListingModal({ open, handleClose }) {
               <CardMedia
                 component="img"
                 height="140"
-                image = {imageUrls[0]}
+                image = {sample}
                 alt="green iguana"
               />
               <CardContent>
@@ -185,14 +186,14 @@ export default function AddListingModal({ open, handleClose }) {
                 {tradeType ? null : <DateSelector inValue={inValue} outValue={outValue} setValue={setValue} setInValue={setInValue}/>}
 
               </div>
-              <div style={{ marginLeft: 145 }}>
+              <div style={{ marginLft: 145, display: 'flex', justifyContent: 'center', gap: 30 }}>
                 <Button onClick={()=>{setPreview(!preview)}} variant="contained" endIcon={<VisibilityIcon />}>
                   Preview Post
                 </Button>
-              </div>
               <Button variant="contained" endIcon={<PublishIcon />}>
                   Post Item
                 </Button>
+              </div>
               </>
 }
             </Box>
