@@ -235,6 +235,7 @@ export const postListing = async (name, description, photos = [], type, start_da
   await updateDoc(docRef, {listing_id: id})
   return docRef
 }
+
 //report a listing
 export const reportListing = async (listing_id) => {
   try {
