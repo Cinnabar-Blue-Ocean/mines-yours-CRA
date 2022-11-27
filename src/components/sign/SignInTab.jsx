@@ -120,7 +120,7 @@ function SignInTab() {
       >
       <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px'}} >Sign In</Box>
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined"
         label="Email"
         value={loginEmail}
@@ -129,7 +129,7 @@ function SignInTab() {
         width = '25ch'
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="Password"
         type="password"
