@@ -17,10 +17,6 @@ const Home = () => {
       <Navbar />
       <LandingPage />
       <MessagesModal />
-      <Link to='/signIn'>signIn</Link>
-      <Link to={`/profile/${3142}`}>profile</Link>
-      <Link to={`/`}>home</Link>
-      <Link to={`/userInfo`}>userInfo</Link>
       </AnimatedPage>
     </Box>
   );
