@@ -25,7 +25,7 @@ const OwnProfile = () => {
     photos: ['https://mattsmusic.com/wp-content/uploads/2021/09/MG_3487.jpg'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -34,7 +34,7 @@ const OwnProfile = () => {
     photos: ['https://ofova.com/wp-content/uploads/2021/09/PAOLI-Bowfront-Desk-cherry-091521.jpg'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -43,7 +43,7 @@ const OwnProfile = () => {
     photos: ['https://carfax-img.vast.com/carfax/v2/3752342368382433449/1/344x258'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -52,7 +52,7 @@ const OwnProfile = () => {
     photos: ['https://dtpmhvbsmffsz.cloudfront.net/posts/2017/11/08/5a03a451f0137d013e008f1c/m_5a03a4c22fd0b7fc8500974a.jpg'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -61,7 +61,7 @@ const OwnProfile = () => {
     photos: ['https://playitagainsports.imgix.net/images/11752-S000029919-1?auto=compress,format&fit=clip&w=800&orient=6'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -70,7 +70,7 @@ const OwnProfile = () => {
     photos: ['https://cdn.dealerspike.com/imglib/v1/800x600/imglib/trimsdb/15922431-0-102827511.jpg'],
     type: 'trade',
     status: 'active',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -79,7 +79,7 @@ const OwnProfile = () => {
     photos: ['https://pixl.varagesale.com/http://s3.amazonaws.com/hopshop-image-store-production/64755877/29db49d661f64ddd3960297c68cd4ae8.jpg?_ver=large_uploader_thumbnail&w=640&h=640&fit=crop&s=9340de6e3d936137dfc48d49d2232672'],
     type: 'trade',
     status: 'unavailable',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -88,7 +88,7 @@ const OwnProfile = () => {
     photos: ['https://pixl.varagesale.com/http://s3.amazonaws.com/hopshop-image-store-production/64755877/29db49d661f64ddd3960297c68cd4ae8.jpg?_ver=large_uploader_thumbnail&w=640&h=640&fit=crop&s=9340de6e3d936137dfc48d49d2232672'],
     type: 'trade',
     status: 'unavailable',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -106,7 +106,7 @@ const OwnProfile = () => {
     photos: ['https://thumbor.offerup.com/_o7XanFeilRcd3xvqGXtL7MC7cA=/1920x1920/8191/81916640341244a78fdebdc9547cd8bc.jpg'],
     type: 'trade',
     status: 'unavailable',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -115,7 +115,7 @@ const OwnProfile = () => {
     photos: ['https://thumbor.offerup.com/t6lQTYBbzjqtfv3KfGFi-6NUUGo=/1440x1920/1989/1989596fd2ce4cddb8aff95fb0a218bb.jpg'],
     type: 'trade',
     status: 'unavailable',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }, {
@@ -124,7 +124,7 @@ const OwnProfile = () => {
     photos: ['https://thumbor.offerup.com/QchuQyXY-56sZaZJ6wgiCZWjyVY=/1440x1920/562e/562ee81fdfc0439eafa46f662b71c61a.jpg'],
     type: 'trade',
     status: 'unavailable',
-    owner_id: 'James',
+    owner_id: `${user.displayName}`,
     zip_code: 61080,
     avatar: 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   }
@@ -151,11 +151,11 @@ const OwnProfile = () => {
   return (
     <div className='profile-container' style={{ display: 'flex', backgrounColor: '#f3e9d2' }}>
       <div className='leftside-container' style={{ display: 'flex', flexDirection: 'column' }}>
-        <ProfileBox />
+        <ProfileBox userName={user}/>
         <LifetimeTrades />
       </div>
       <div className='rightside-container' style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}>
-        <UserActiveTrades userListing={listings}/>
+        <UserActiveTrades userListing={listings} userName={user}/>
         <Reviews />
       </div>
     </div>

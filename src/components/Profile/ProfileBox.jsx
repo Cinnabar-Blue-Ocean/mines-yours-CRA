@@ -14,7 +14,7 @@ import Fab from '@mui/material/Fab';
 const samplePhoto = 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
 
 //test
-const ProfileBox = () => {
+const ProfileBox = ({userName}) => {
   return (
     <div style={{ width: 400, marginTop: 8 }}>
       <Grid>
@@ -26,7 +26,7 @@ const ProfileBox = () => {
                   border: '1px solid black'
                 }} />
               <div>
-                <div style={{ marginLeft: 20, marginBottom: 10, marginTop: 20, fontSize: 26, fontWeight: 'bold' }}>James Johnson</div>
+                <div style={{ marginLeft: 20, marginBottom: 10, marginTop: 20, fontSize: 26, fontWeight: 'bold' }}>{userName.displayName}</div>
                 <div style={{ marginLeft: 20 }}>Joined Jan. 2019</div>
                 <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly sx={{ ml: 2, mt: 1.5 }} />
               </div>

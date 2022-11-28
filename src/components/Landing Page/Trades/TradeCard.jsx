@@ -34,7 +34,7 @@ export default function MediaCard(props) {
             {item.description.split('.')[0] + ' ...'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {`${item.type[0].toUpperCase() + item.type.substr(1)} trade located at ${item.zip_code}`}
+            {`${item.type[0].toUpperCase() + item.type.substr(1)} located at ${item.zip_code}`}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{pt: '5px'}}>
             {`Posted by: ${item.owner_id}`}

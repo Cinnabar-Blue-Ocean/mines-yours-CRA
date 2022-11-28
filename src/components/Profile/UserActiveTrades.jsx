@@ -93,7 +93,7 @@ const listings = [{
 
 // client/src/components/Landing Page/Trades/TradeCard.jsx
 
-const UserActiveTrades = ({userListing}) => {
+const UserActiveTrades = ({userListing, userName}) => {
   const [type, setType] = useState(true)
 
   return (

@@ -31,6 +31,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import BasicModal from '../Landing Page/Modal/ListingModal'
+import { useAuth } from '../../firebase/authMethods.js';
 
 
 const style = {
@@ -55,9 +56,10 @@ export default function AddListingModal({ open, handleClose }) {
   const [itemDesc, setItemDesc] = useState('');
   const [tradeType, setTradeType] = useState(true);
   const [imageUrls, setImageUrls] = useState([]);
-  const [outValue, setValue] = useState(moment('2022-11-22T21:11:54'));
-  const [inValue, setInValue] = useState(moment('2022-11-22T21:11:54'));
+  const [outValue, setValue] = useState(moment('2022-11-28T21:11:54'));
+  const [inValue, setInValue] = useState(moment('2022-11-28T21:11:54'));
   const [preview, setPreview] = useState(false);
+  const { user } = useAuth();
 
   const samplePhoto = 'https://st.depositphotos.com/1144472/2003/i/950/depositphotos_20030237-stock-photo-cheerful-young-man-over-white.jpg'
   const sample = 'https://images.unsplash.com/photo-1668778803410-3a9b3132a5ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDF8QkpKTXR0ZURKQTR8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'
@@ -127,7 +129,7 @@ export default function AddListingModal({ open, handleClose }) {
                   {`${(tradeType ? 'trade' : 'loan')[0].toUpperCase() + (tradeType ? 'trade' : 'loan').substr(1)} located at ${76049}`}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{pt: '5px'}}>
-                  {`Posted by: ${'James'}`}
+                  {`Posted by: ${user.displayName}`}
                 </Typography>
               </CardContent>
               <CardActions>
