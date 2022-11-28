@@ -7,8 +7,9 @@ import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
+import OwnProfilePage from '../pages/OwnProfilePage.jsx'
 
-import { withData } from '../firebase/dataStore.jsx';
+
 import {
   getUsers,
   getListings,
@@ -50,7 +51,8 @@ const App = () => {
       <AnimatePresence exitBeforeEnter>
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<Home />} />
-          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/ownProfile' element={<OwnProfilePage />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/userInfo" element={<CollectUserInfo />} />
           <Route path="/loading" element={<Loader />} />
@@ -61,6 +63,6 @@ const App = () => {
 };
 
 
-export default withData(App);
+export default App;
 
 

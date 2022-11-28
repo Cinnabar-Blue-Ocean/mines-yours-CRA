@@ -9,9 +9,12 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import BasicModal from '../Modal/ListingModal'
+import { useNavigate } from "react-router-dom";
+
 
 export default function MediaCard(props) {
   const { listings } = props
+  const navigate = useNavigate();
   return (
     <>
     {listings.map((item, i) => {
@@ -45,6 +48,7 @@ export default function MediaCard(props) {
           <BasicModal images={item.photos} description={item.description}/>
           <Container className="avatar" sx={{width: '0 !important'}} onClick={(e) => {
             //info about user
+            navigate(`/profile`, { replace: true })
             console.log(item.owner_id)
           }}>
           <Avatar alt="Remy Sharp" src={item.avatar} />

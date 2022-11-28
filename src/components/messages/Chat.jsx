@@ -2,7 +2,7 @@ import React from 'react';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
-import Messages from './Messages'
+import Messages from './messages'
 import Input from './Input'
 const Chat = () => {
   return (

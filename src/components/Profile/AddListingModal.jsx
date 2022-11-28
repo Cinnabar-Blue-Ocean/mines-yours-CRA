@@ -23,7 +23,7 @@ import NewDateSelector from './NewDateSelector.jsx'
 import moment from 'moment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {postListing} from '../../firebase/firestoreMethods.js'
+import { postListing } from '../../firebase/firestoreMethods.js'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -64,7 +64,9 @@ export default function AddListingModal({ open, handleClose }) {
 
 
 
-  const sendNewListing = () => {
+  const sendNewListing = (e) => {
+    e.preventDefault()
+    // console.log('test')
     let info = {
       name: itemName,
       description: itemDesc,
@@ -73,9 +75,13 @@ export default function AddListingModal({ open, handleClose }) {
       outDate: outValue._d,
       inDate: inValue._d,
     }
-    console.log(info)
-    // //name, description, photos = [], type, zip_code
-    // postListing(itemName, itemDesc, imageUrls, tradeType, "zipcode")
+    // console.log(imageUrls)
+    //name, description, photos = [], type, zip_code
+    postListing(itemName, itemDesc, imageUrls, info.type, new Date(), new Date(), 76049)
+    .then((data) => {
+      console.log('successposting!!!')
+      handleClose(!open)
+    })
   }
 
   return (
@@ -103,11 +109,11 @@ export default function AddListingModal({ open, handleClose }) {
             >
               {preview ?
               <>
-              <Card sx={{ width: 280 }}>
+              <Card sx={{ width: 280, ml: 10, mt: 10 }}>
               <CardMedia
                 component="img"
                 height="140"
-                image = {sample}
+                image = {imageUrls}
                 alt="green iguana"
               />
               <CardContent>
@@ -118,7 +124,7 @@ export default function AddListingModal({ open, handleClose }) {
                   {itemDesc.split('.')[0] + '...'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {`${(tradeType ? 'trade' : 'loan')[0].toUpperCase() + (tradeType ? 'trade' : 'loan').substr(1)} trade located at ${76028}`}
+                  {`${(tradeType ? 'trade' : 'loan')[0].toUpperCase() + (tradeType ? 'trade' : 'loan').substr(1)} located at ${76049}`}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{pt: '5px'}}>
                   {`Posted by: ${'James'}`}
@@ -138,7 +144,7 @@ export default function AddListingModal({ open, handleClose }) {
                 </Container>
               </CardActions>
             </Card>
-              <div>
+              <div style={{display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center', marginTop: 150}}>
 <Button onClick={()=>{setPreview(!preview)}} variant="contained" startIcon={<ArrowBackIcon />}>
                   Go Back
                 </Button>
@@ -174,7 +180,7 @@ export default function AddListingModal({ open, handleClose }) {
                 onChange={(e) => { setItemDesc(e.target.value) }}
                 helperText={`Characters Left: ${140 - itemDesc.length}`}
               />
-              <ImageUpload imageUrls={imageUrls} setImageUrls={setImageUrls}/>
+              <ImageUpload imageUrls={imageUrls} setImageUrls={setImageUrls} style={{marginLeft: 5}}/>
 
               <div style={{ display: 'flex' }}>
                 <div style={{ marginTop: 22, marginLeft: 8 }}>Trade or Loan?</div>
@@ -190,7 +196,7 @@ export default function AddListingModal({ open, handleClose }) {
                 <Button onClick={()=>{setPreview(!preview)}} variant="contained" endIcon={<VisibilityIcon />}>
                   Preview Post
                 </Button>
-              <Button variant="contained" endIcon={<PublishIcon />}>
+              <Button onClick={sendNewListing} variant="contained" endIcon={<PublishIcon />}>
                   Post Item
                 </Button>
               </div>

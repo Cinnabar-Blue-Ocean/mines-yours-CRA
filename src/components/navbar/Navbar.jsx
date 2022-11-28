@@ -21,10 +21,10 @@ import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
 const pages = ['Home', 'Profile', 'Listings', 'New Listing'];
-const urlMap = ['/', '/profile/:userId', '/', '/'];
+const urlMap = ['/', '/ownProfile', '/', '/'];
 
 const settings = ['Account', 'Logout', 'Login', 'Register'];
-const settingsMap = ['/profile/:userId', '/signIn', '/signIn', '/signIn'];
+const settingsMap = ['/profile', '/signIn', '/signIn', '/signIn'];
 
 function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
