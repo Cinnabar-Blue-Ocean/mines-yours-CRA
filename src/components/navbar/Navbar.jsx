@@ -28,10 +28,10 @@ function Navbar(props) {
   const [open, setOpen] = React.useState(false);
 
   const pages = ['Home', 'Profile', 'Listings', 'New Listing', authenticatedUser ? 'Logout' : 'Login'];
-  const urlMap = ['/', '/profile/:userId', '/', '/', '/signIn'];
+  const urlMap = ['/', '/ownProfile', '/', '/', '/signIn'];
 
   const settings = ['Account', 'Admin'];
-  const settingsMap = ['/profile/:userId', '/admin'];
+  const settingsMap = ['/ownProfile', '/admin'];
 
   const { user, signOutUser } = useAuth();
   const navigate = useNavigate();
