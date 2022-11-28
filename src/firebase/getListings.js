@@ -11,7 +11,7 @@ export const getListings = async () => {
       allListings.push(doc.data())
     });
     return allListings;
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -24,7 +24,7 @@ export const ratingListings = async (rating) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
     });
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -37,7 +37,7 @@ export const typeListings = async (type) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
     });
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
@@ -50,7 +50,22 @@ export const distanceListings = async (location) => {
       // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
     });
-  } catch(err) {
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const reportedListings = async () => {
+  try {
+    let allListings = [];
+    const q = query(collection(db, "listing"), where("status", "==", 'reported'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      allListings.push(doc.data());
+    });
+
+    return allListings;
+  } catch (err) {
     console.log(err)
   }
 }

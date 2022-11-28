@@ -18,9 +18,9 @@ const SearchBar = () => {
   const dataFiltered = filterData(searchQuery, data);
 
   return (
-    <form style={{ width: '100%', marginLeft: '15px', border: '#398378!important', outlined: false }}>
+    <form style={{ width: '80%', marginLeft: '15px', border: '#398378!important', outlined: false }}>
       <TextField
-        style={{ width: '90%', border: '#398378!important' }}
+        style={{ width: '80%', border: '#398378!important' }}
         onChange={(e) => setSearchQuery(e.target.value)}
         label="Find a trade..."
         variant="outlined"

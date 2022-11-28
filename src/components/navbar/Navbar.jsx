@@ -27,9 +27,16 @@ const settings = ['Account', 'Logout', 'Login', 'Register'];
 const settingsMap = ['/profile', '/signIn', '/signIn', '/signIn'];
 
 function Navbar(props) {
+  const authenticatedUser = useAuth().user.reloadUserInfo.localId;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+
+  const pages = ['Home', 'Profile', 'Listings', 'New Listing', authenticatedUser ? 'Logout' : 'Login'];
+  const urlMap = ['/', '/profile/:userId', '/', '/', '/signIn'];
+
+  const settings = ['Account', 'Admin'];
+  const settingsMap = ['/profile/:userId', '/admin'];
 
   const { user, signOutUser } = useAuth();
   const navigate = useNavigate();
@@ -181,9 +188,6 @@ function Navbar(props) {
                     </Link>
                   </MenuItem>
                 ))}
-                {/* <Button textAlign="center" onClick={handleSignOut} style={{ textDecoration: 'none' }}>
-                  <Typography textAlign="center">Logout</Typography>
-                </Button> */}
               </Menu>
             </Box>
           </Toolbar>
