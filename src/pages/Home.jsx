@@ -17,15 +17,7 @@ const Home = () => {
       <AnimatedPage>
       <Navbar />
       <LandingPage />
-<<<<<<< HEAD
       <MessagesModal />
-=======
-      {auth.currentUser && <MessagesModal />}
-      <Link to='/signIn'>signIn</Link>
-      <Link to={`/profile/${3142}`}>profile</Link>
-      <Link to={`/`}>home</Link>
-      <Link to={`/userInfo`}>userInfo</Link>
->>>>>>> 2fe94f3 (Finishing up)
       </AnimatedPage>
     </Box>
   );
