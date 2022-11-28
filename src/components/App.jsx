@@ -11,7 +11,6 @@ import Panel from './admin/panel.jsx'
 import OwnProfilePage from '../pages/OwnProfilePage.jsx'
 
 
-import { useData } from '../firebase/dataStore.jsx';
 import {
   getUsers,
   getListings,
@@ -66,6 +65,6 @@ const App = () => {
 };
 
 
-export default (App);
+export default App;
 
 
