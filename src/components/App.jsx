@@ -7,6 +7,7 @@ import Home from '../pages/Home.jsx'
 import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
+import Panel from './admin/panel.jsx'
 
 import { useData } from '../firebase/dataStore.jsx';
 import {
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/userInfo" element={<CollectUserInfo />} />
           <Route path="/loading" element={<Loader />} />
+          <Route path="/admin" element={<Panel />} />
         </Routes>
       </AnimatePresence>
     </Box>
