@@ -22,9 +22,9 @@ const LandingPage = () => {
   const [listings, setListings] = useState([])
   const { signIn, user } = useAuth();
 
-  // useEffect(() => {
-  //   signIn('bobby@gmail.com', 'password123')
-  // }, []);
+  // // useEffect(() => {
+  // //   signIn('bobby@gmail.com', 'password123')
+  // // }, []);
 
   useEffect(() => {
     const loadData = async () => {

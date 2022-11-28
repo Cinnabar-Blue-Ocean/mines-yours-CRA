@@ -1,25 +1,21 @@
-import "../components/messages/style.scss"
 import React from 'react';
-import LandingPage from '../components/Landing Page/LandingPage'
 import Navbar from '../components/navbar/Navbar.jsx';
 import { Route, Routes } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import OwnProfile from '../components/Profile/OwnProfile'
 import AnimatedPage from '../components/Profile/AnimatedPage'
-import MessagesModal from './MessagesModal'
+// import { Link } from 'react-router-dom';
 
 
-
-const Home = () => {
+const OwnProfilePage = () => {
   return (
     <Box>
+        <Navbar />
       <AnimatedPage>
-      <Navbar />
-      <LandingPage />
-      <MessagesModal />
+        <OwnProfile />
       </AnimatedPage>
     </Box>
   );
 };
 
-export default Home;
+export default OwnProfilePage;

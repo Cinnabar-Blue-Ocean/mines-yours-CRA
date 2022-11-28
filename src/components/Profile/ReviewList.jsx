@@ -56,10 +56,10 @@ const ReviewList = () => {
     <>
       {props.map((item, i) => {
         return (
-          <Paper key={i} style={{width: 400, height: 200}}>
+          <Paper key={i} style={{width: 300, height: 200}}>
             <div className='reviewTopRow' style={{display: 'flex'}}>
               <Avatar sx={{ml: 2, mt: 1, width: 45, height: 45}}/>
-              <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly sx={{ ml: 23, mt: 1.5 }} size='large'/>
+              <Rating name="half-rating-read" defaultValue={Math.random() * (5 - 2) + 2} precision={0.5} readOnly sx={{ ml: 9, mt: 1.5 }} size='large'/>
             </div>
             <div style={{fontWeight: 'bold', fontSize: 20, marginTop: 10, marginLeft: 10}}>
               {item.name}

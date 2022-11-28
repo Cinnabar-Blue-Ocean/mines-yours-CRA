@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../firebase/authMethods.js";
 
+
 import logo from '../../media/logo-no-background.png';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,6 +21,10 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
+const pages = ['Home', 'Profile', 'Listings', 'New Listing'];
+
+const settings = ['Account', 'Logout', 'Login', 'Register'];
+const settingsMap = ['/profile', '/signIn', '/signIn', '/signIn'];
 
 function Navbar(props) {
   const authenticatedUser = useAuth().user.reloadUserInfo.localId;
@@ -35,6 +40,7 @@ function Navbar(props) {
 
   const { user, signOutUser } = useAuth();
   const navigate = useNavigate();
+  const urlMap = ['/', user ? '/ownProfile' : '/signIn', '/', '/'];
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

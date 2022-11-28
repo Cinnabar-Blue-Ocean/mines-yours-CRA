@@ -8,6 +8,8 @@ import SignIn from '../pages/SignIn.jsx'
 import Profile from '../pages/Profile.jsx'
 import CollectUserInfo from '../pages/CollectUserInfo.jsx'
 import Panel from './admin/panel.jsx'
+import OwnProfilePage from '../pages/OwnProfilePage.jsx'
+
 
 import { useData } from '../firebase/dataStore.jsx';
 import {
@@ -51,7 +53,8 @@ const App = () => {
       <AnimatePresence exitBeforeEnter>
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<Home />} />
-          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/ownProfile' element={<OwnProfilePage />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/userInfo" element={<CollectUserInfo />} />
           <Route path="/loading" element={<Loader />} />
