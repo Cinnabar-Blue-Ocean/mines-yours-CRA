@@ -21,11 +21,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
-const pages = ['Home', 'Profile', 'Listings', 'New Listing'];
-
-const settings = ['Account', 'Logout', 'Login', 'Register'];
-const settingsMap = ['/profile', '/signIn', '/signIn', '/signIn'];
-
 function Navbar(props) {
   const authenticatedUser = useAuth().user.reloadUserInfo.localId;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
