@@ -8,7 +8,7 @@ import ImageUpload from '../components/Profile/ImageUpload.jsx'
 
 
 function CollectUserInfo() {
-  const {signIn, signInWithGoogle, resetPassword,signOutUser,user,addData} = useAuth();
+  const {signIn, signInWithGoogle, resetPassword,signOutUser,user,addData,addChat} = useAuth();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -34,11 +34,12 @@ function CollectUserInfo() {
       zip_code:zipCode,
       rating:null,
       bio:aboutMe,
-      profile_image:imageUrls[0],
+      profile_image:imageUrls[0] || '',
       status:'active'
     }
     console.log('userRef',userRef)
     await addData(userRef)
+    await addChat()
     navigate(`/profile/${user.uid}`, { replace: true })
   }
 
@@ -65,9 +66,9 @@ function CollectUserInfo() {
         p='30px'
         gap='15px'
     >
-    <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px'}} >User Info</Box>
+    <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px',textAlign:'center'}}>WelCome{user?`: ${user.email}`:null}</Box>
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined"
         label="First Name"
         value={firstName}
@@ -75,7 +76,7 @@ function CollectUserInfo() {
         required
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="Last Name"
         type="text"
@@ -84,7 +85,7 @@ function CollectUserInfo() {
         required
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="username"
         type="text"
@@ -93,7 +94,7 @@ function CollectUserInfo() {
         required
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px',color: 'green' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="About Me"
         type="text"
@@ -104,7 +105,7 @@ function CollectUserInfo() {
         required
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="ZipCode"
         type="text"
@@ -129,7 +130,7 @@ function CollectUserInfo() {
             border:'1px solid green'
           }}
         onClick={handleSubmit}
-          variant="outlined">Submit</Button>
+          variant="outlined">Submit profile</Button>
       </Stack>
     </Stack>
   );

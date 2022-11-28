@@ -22,9 +22,9 @@ const LandingPage = () => {
   const [listings, setListings] = useState([])
   const { signIn, user } = useAuth();
 
-  // useEffect(() => {
-  //   signIn('bobby@gmail.com', 'password123')
-  // }, []);
+  // // useEffect(() => {
+  // //   signIn('bobby@gmail.com', 'password123')
+  // // }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -34,14 +34,6 @@ const LandingPage = () => {
     loadData();
   }, []);
 
-  // useEffect(() => {
-  //   getListings()
-  //   .then((data) => {
-  //     setListings(data);
-  //   })
-  //   // findDistance(61080, 61073)
-  // }, [])
-
   return listings.length > 0 ? (
     <>
       <div id="landing-page">
@@ -49,17 +41,16 @@ const LandingPage = () => {
         <div id="trade-container">
           <Trades listings={listings} />
         </div>
-        {listings.length > 9 ? (<Pagination count={10} />) : (null)}
-      </div>
       <button onClick={() => {
         orderListings('status')
-          .then(data => {
-            let moreResults = listings.slice();
-            let finalResults = moreResults.concat(data);
-            console.log('final results', finalResults, 'data', data)
-            setListings(finalResults);
-          })
-      }}>LOAD MORE</button>
+        .then(data => {
+          let moreResults = listings.slice();
+          let finalResults = moreResults.concat(data);
+          console.log('final results', finalResults, 'data', data)
+          setListings(finalResults);
+        })
+      }} className="loadmore">More listings...</button>
+      </div>
     </>
   ) : null
 };

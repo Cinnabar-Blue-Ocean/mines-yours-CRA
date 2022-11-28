@@ -38,7 +38,9 @@ function SignInTab() {
       navigate(`/profile/${user.user.uid}`, { replace: true })
 
     } catch (error) {
-      setError(error.message);
+      const err = error.message.slice(10)
+      console.log(err)
+      setError(err);
     }
 
     setLoading(false);
@@ -104,7 +106,7 @@ function SignInTab() {
     navigate(`/loading`, { replace: true })
     setTimeout(fun=>{
       navigate(`/`, { replace: true })
-    }, 600)
+    }, 4000)
   }
   return (
     <>
@@ -120,7 +122,7 @@ function SignInTab() {
       >
       <Box sx={{color:'green',fontWeight:'1000',fontSize:'38px'}} >Sign In</Box>
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined"
         label="Email"
         value={loginEmail}
@@ -129,7 +131,7 @@ function SignInTab() {
         width = '25ch'
       />
       <TextField
-        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
+        sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' ,color: 'green'}, width: { lg: '300px', xs: '250px' }, borderRadius: '40px' }}
         id="outlined-password-input"
         label="Password"
         type="password"
@@ -139,7 +141,7 @@ function SignInTab() {
         required
       />
         {message && <Box sx={{color:'green',fontWeight:'1000'}} >{message}!</Box>}
-        {error && <Box sx={{color:'green',fontWeight:'1000'}}>{error}!</Box>}
+        {error && <Box sx={{color:'green',fontWeight:'1000'}}>{error}</Box>}
       <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handlePassword}>Forgot password?</Box>
       <Button
         sx={{
