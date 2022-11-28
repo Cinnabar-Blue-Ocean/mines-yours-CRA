@@ -152,7 +152,7 @@ const OwnProfile = () => {
     <div className='profile-container' style={{ display: 'flex', backgrounColor: '#f3e9d2' }}>
       <div className='leftside-container' style={{ display: 'flex', flexDirection: 'column' }}>
         <ProfileBox userName={user}/>
-        <LifetimeTrades />
+        <LifetimeTrades userName={user}/>
       </div>
       <div className='rightside-container' style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}>
         <UserActiveTrades userListing={listings} userName={user}/>

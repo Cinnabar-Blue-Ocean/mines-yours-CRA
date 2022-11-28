@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import BasicModal from '../Modal/ListingModal'
 import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 
 export default function MediaCard(props) {
@@ -19,6 +20,7 @@ export default function MediaCard(props) {
     <>
     {listings.map((item, i) => {
       return (
+        <motion.div whileHover={{scale: 1.1}}>
         <Card sx={{ width: 260 }} key={i}>
         <CardMedia
           component="img"
@@ -55,7 +57,7 @@ export default function MediaCard(props) {
           </Container>
         </CardActions>
       </Card>
-
+      </motion.div>
       )
     })}
 
