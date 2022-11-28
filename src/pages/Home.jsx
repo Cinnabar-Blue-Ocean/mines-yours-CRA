@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AnimatedPage from '../components/Profile/AnimatedPage'
 import MessagesModal from './MessagesModal'
+import {auth} from '../firebase/index.js'
 
 
 
@@ -16,7 +17,7 @@ const Home = () => {
       <AnimatedPage>
       <Navbar />
       <LandingPage />
-      <MessagesModal />
+      {auth.currentUser && <MessagesModal />}
       <Link to='/signIn'>signIn</Link>
       <Link to={`/profile/${3142}`}>profile</Link>
       <Link to={`/`}>home</Link>

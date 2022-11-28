@@ -19,7 +19,7 @@ export function DataProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    signInWithEmailAndPassword(auth, 'bobby@gmail.com', 'password123');
+    signInWithEmailAndPassword(auth, 'jon3@gmail.com', 'password');
   }, [])
 
   useEffect(() => {

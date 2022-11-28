@@ -23,6 +23,7 @@ const Search = () => {
   const handleSearch = async () => {
     const q = query(collection(db, "users"), where("username", "==" , searchUser))
     console.log('query!')
+    console.log(currentUser)
     try {
       console.log('in')
       const querySnapshot = await getDocs(q)
@@ -69,7 +70,7 @@ const Search = () => {
         await updateDoc(doc(db, "userChats", userId), {
           [combinedId+".userInfo"]: {
             uid:currentUser.uid,
-            username: currentUser.username,
+            username: currentUser.email,
           },
           [combinedId+".date"]: serverTimestamp()
         })
