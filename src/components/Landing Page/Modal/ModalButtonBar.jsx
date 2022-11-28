@@ -3,10 +3,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../../firebase/'
-import { reportListing, activateListing } from '../../../firebase/firestoreMethods.js';
+import { reportListing, updateListing, postTrade } from '../../../firebase/firestoreMethods.js';
 
 
-export default function ModalButtonBar({ id }) {
+export default function ModalButtonBar({ listing }) {
   const [user, setUser] = useState(null)
   const [showReport, setShowReport] = useState(false)
   const [showTradeConfirmation, setShowTradeConfirmation] = useState()
@@ -20,7 +20,7 @@ export default function ModalButtonBar({ id }) {
   const sendReport = async () => {
     try {
       if (user) {
-        reportListing(id)
+        reportListing(listing.listing_id)
       } else {
         throw new Error('You must be logged in to report a listing')
       }
@@ -31,8 +31,12 @@ export default function ModalButtonBar({ id }) {
 
   const sendTrade = async () => {
     try {
+      const listingId = listing.listing_id
+      console.log(listing)
       if (user) {
-        activateListing(id)
+        await updateListing(listingId, {status: 'unavailable'})
+        let trade = await postTrade(listingId, user.uid, listing.end_date)
+        console.log('Trade created with id: ', trade)
       } else {
         throw new Error('You must be logged in to start a trade')
       }
@@ -44,7 +48,7 @@ export default function ModalButtonBar({ id }) {
   return (
     <>
       <Stack spacing={2} direction="column">
-        <Button variant="outlined" onClick={e => setShowTradeConfirmation(!showTradeConfirmation)}>Start Trade</Button>
+        <Button variant="outlined" onClick={e => setShowTradeConfirmation(!showTradeConfirmation)}>Accept Offer</Button>
         {showTradeConfirmation ? <>
           You're about to start a trade with the owner, continue?
           <Stack spacing={2} direction="row">

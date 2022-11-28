@@ -42,7 +42,7 @@ export default function MediaCard(props) {
             // Get info about item and user to send to db to query
             console.log(item.name, item.owner_id)
           }}>Message</Button>
-          <BasicModal images={item.photos} description={item.description} id={item.listing_id}/>
+          <BasicModal images={item.photos} description={item.description} listing={item}/>
           <Container className="avatar" sx={{width: '0 !important'}} onClick={(e) => {
             //info about user
             console.log(item.owner_id)

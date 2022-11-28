@@ -150,12 +150,14 @@ export const postTrade = async (listing_id, receiver_id, expiration_date, start_
     } else {
       const data = {
         listing_id,
-        owner_id: listing.user_id,
+        trade_id: null,
+        owner_id: listing.owner_id,
         expiration_date,
         start_date,
-        status: 'pending'
+        status: 'active'
       }
       let docRef = await addDoc(collection(db, 'trades'), data)
+      updateTrade(docRef.id, {trade_id: docRef.id})
       return docRef.id
     }
 
@@ -219,7 +221,13 @@ export const getListingById = async (listing_id) => {
 }
 
 //post a listing
-export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date, zip_code) => {
+export const postListing = async (name, description, photos = [], type, start_date = new Date(), end_date = null, zip_code) => {
+  const user = await getUserById(auth.currentUser.uid)
+  const userZip = user.zip_code
+  if (!zip_code) {
+    zip_code = userZip
+  }
+
   const docRef = await addDoc(collection(db, 'listings'), {
     name,
     description,
