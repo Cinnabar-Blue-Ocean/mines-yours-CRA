@@ -35,7 +35,6 @@ function Navbar(props) {
 
   const { user, signOutUser } = useAuth();
   const navigate = useNavigate();
-  const urlMap = ['/', user ? '/ownProfile' : '/signIn', '/', '/'];
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
