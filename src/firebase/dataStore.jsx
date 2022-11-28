@@ -18,9 +18,15 @@ export function DataProvider({ children }) {
   const [usersTrades, setUsersTrades] = useState([]);
   const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   signInWithEmailAndPassword(auth, 'bobby@gmail.com', 'password123');
   // }, [])
+=======
+  useEffect(() => {
+    signInWithEmailAndPassword(auth, 'jon3@gmail.com', 'password');
+  }, [])
+>>>>>>> 2fe94f3 (Finishing up)
 
   useEffect(() => {
     const loadData = async () => {
