@@ -18,7 +18,7 @@ import Button from '@mui/material/Button';
 
 
 
-const LifetimeTrades = () => {
+const LifetimeTrades = ({userName}) => {
 
   return (
     <Box>
@@ -31,7 +31,7 @@ const LifetimeTrades = () => {
         </Button>
       </div>
       <Paper elevation={24} sx={{ height: 465, ml: 2, mt: 1, borde: '1px solid black', borderRadius: 2, maxHeight: '80vh', overflowY: 'auto', }}>
-        <SponsoredTrades />
+        <SponsoredTrades userName={userName}/>
       </Paper>
     </Box>
   );
