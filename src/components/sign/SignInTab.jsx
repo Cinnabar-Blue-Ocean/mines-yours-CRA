@@ -106,7 +106,7 @@ function SignInTab() {
     navigate(`/loading`, { replace: true })
     setTimeout(fun=>{
       navigate(`/`, { replace: true })
-    }, 4000)
+    }, 3000)
   }
   return (
     <>
