@@ -38,7 +38,9 @@ function SignInTab() {
       navigate(`/profile/${user.user.uid}`, { replace: true })
 
     } catch (error) {
-      setError(error.message);
+      const err = error.message.slice(10)
+      console.log(err)
+      setError(err);
     }
 
     setLoading(false);
@@ -104,7 +106,7 @@ function SignInTab() {
     navigate(`/loading`, { replace: true })
     setTimeout(fun=>{
       navigate(`/`, { replace: true })
-    }, 600)
+    }, 4000)
   }
   return (
     <>
@@ -139,7 +141,7 @@ function SignInTab() {
         required
       />
         {message && <Box sx={{color:'green',fontWeight:'1000'}} >{message}!</Box>}
-        {error && <Box sx={{color:'green',fontWeight:'1000'}}>{error}!</Box>}
+        {error && <Box sx={{color:'green',fontWeight:'1000'}}>{error}</Box>}
       <Box sx={{cursor:'pointer',textDecoration:'underline',color:'green',textAlign:'right'}} onClick={handlePassword}>Forgot password?</Box>
       <Button
         sx={{
