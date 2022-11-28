@@ -13,7 +13,6 @@ import {db, auth} from "../../firebase/index.js"
 const Chat = () => {
   const {currentUser} = auth;
   const {data} = useContext(ChatContext);
-  console.log(data)
   return (
     <div className="chat">
       <div className="chatInfo">
@@ -25,7 +24,7 @@ const Chat = () => {
         </div>
       </div>
       <Messages />
-      <Input />
+      <Input data={data}/>
     </div>
   )
 }
