@@ -28,11 +28,12 @@ const Panel = () => {
   }, []);
 
   const rows = flaggedListings.map((lstng) => {
-    return { id: lstng.listing_id, name: lstng.name, status: lstng.status, type: lstng.type, zip_code: lstng.zip_code, owner: lstng.owner_id, description: lstng.description };
+    return { id: lstng.listing_id, name: lstng.name, status: 'flagged', type: lstng.type, zip_code: lstng.zip_code, owner: lstng.owner_id, description: lstng.description };
+    // lstng.status
   });
 
   const handleRelist = () => {
-    flaggedListings.forEach(async (lstng) => {
+    flaggedListings.slice(0,10).forEach(async (lstng) => {
       await updateListing(lstng.listing_id, { status: 'active' });
       return;
     });
@@ -40,10 +41,10 @@ const Panel = () => {
   };
 
   return (
-    <div style={{ height: 400, width: '98%', padding: '0px 25px 0px 25px' }}>
+    <div style={{ height: '85vh', width: '98%', padding: '0px 25px 0px 25px' }}>
       <h1>Welcome, Mark.</h1>
       <br></br>
-      <div style={{ width: '25%', display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ width: '35%', display: 'flex', justifyContent: 'space-between' }}>
         <h2>Reported Listings</h2>
         <Button
           onClick={(e) => handleRelist(e)}
@@ -51,12 +52,18 @@ const Panel = () => {
         >
           Reactivate Selection
         </Button>
+        <Button
+          onClick={(e) => window.location = '/'}
+          sx={{ my: 2, color: '#398378', display: 'block' }}
+        >
+          Return TO HOME
+        </Button>
       </div>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={20}
+        rowsPerPageOptions={[20]}
         checkboxSelection
       />
     </div>

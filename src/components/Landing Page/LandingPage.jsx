@@ -41,15 +41,15 @@ const LandingPage = () => {
         <div id="trade-container">
           <Trades listings={listings} />
         </div>
-      <button onClick={() => {
-        orderListings('status')
-        .then(data => {
-          let moreResults = listings.slice();
-          let finalResults = moreResults.concat(data);
-          console.log('final results', finalResults, 'data', data)
-          setListings(finalResults);
-        })
-      }} className="loadmore">More listings...</button>
+        <button onClick={() => {
+          orderListings('status')
+            .then(data => {
+              let moreResults = listings.slice();
+              let finalResults = moreResults.concat(data);
+              console.log('final results', finalResults, 'data', data)
+              setListings(finalResults);
+            })
+        }} className="loadmore">More listings...</button>
       </div>
     </>
   ) : null
