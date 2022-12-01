@@ -32,7 +32,7 @@ export const getListings = async (filters) => {
   try {
     let listings = [];
     const listingsCollection = collection(db, 'listings');
-    const data = query(listingsCollection, where(key, "==", value), limit(5));
+    const data = query(listingsCollection, where(key, "==", value), limit(12));
     const querySnapshot = await getDocs(data);
     querySnapshot.forEach(doc => {
       listings.push(doc.data());
@@ -376,7 +376,7 @@ let lastItem = null;
 
 export const orderListings = async (keyword) => {
   const listingsCollection = collection(db, 'listings');
-  const firstBatch = query(listingsCollection, orderBy(keyword), startAfter(lastItem || 0), limit(5));
+  const firstBatch = query(listingsCollection, orderBy(keyword), startAfter(lastItem || 0), limit(12));
   const docSnapshot = await getDocs(firstBatch);
 
   let listings = [];

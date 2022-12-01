@@ -31,7 +31,8 @@
     "rsuite": "^5.22.2",
     "sass": "^1.56.1",
     "web-vitals": "^2.1.4",
-    "zipcode-city-distance": "^1.0.6"
+    "zipcode-city-distance": "^1.0.6",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

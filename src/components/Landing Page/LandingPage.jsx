@@ -29,7 +29,7 @@ const LandingPage = () => {
   useEffect(() => {
     const loadData = async () => {
       const contextListings = await dataContext.loadListings();
-      setListings(contextListings.slice(0, 12));
+      setListings(contextListings);
     }
     loadData();
   }, []);
