@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
 import Messages from './Messages'
 import Input from './Input'
+import { ChatContext } from "./ChatContext.js"
+import {db, auth} from "../../firebase/index.js"
+
+
+
+
 const Chat = () => {
+  const {currentUser} = auth;
+  const {data} = useContext(ChatContext);
+
   return (
     <div className="chat">
       <div className="chatInfo">
-        <span>Jane</span>
+        <span>{data.user?.username}</span>
         <div className="chatIcons">
           <VideoCallIcon className="MUI"/>
           <PersonAddIcon className="MUI"/>
@@ -16,7 +25,7 @@ const Chat = () => {
         </div>
       </div>
       <Messages />
-      <Input />
+      <Input data={data}/>
     </div>
   )
 }
