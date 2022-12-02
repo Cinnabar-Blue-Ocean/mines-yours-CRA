@@ -22,13 +22,13 @@ import SearchBar from './searchbar.jsx';
 import AddListingModal from '../Profile/AddListingModal.jsx'
 
 function Navbar(props) {
-  const authenticatedUser = useAuth().user.reloadUserInfo.localId;
+  const authenticatedUser = useAuth().user;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
   const pages = ['Home', 'Profile', 'Listings', 'New Listing', authenticatedUser ? 'Logout' : 'Login'];
-  const urlMap = ['/', '/ownProfile', '/', '/', '/signIn'];
+  const urlMap = ['/', authenticatedUser ?'/ownProfile':'/signIn', '/', '/', '/signIn'];
 
   const settings = ['Account', 'Admin'];
   const settingsMap = ['/ownProfile', '/admin'];

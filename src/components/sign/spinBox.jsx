@@ -13,7 +13,7 @@ import logo from '../../media/logo-no-background.png';
 function SpinBox() {
     const images = [ad,trade,ad2,trade2,ad3,trade3,ad4,trade4]
     const [stop,setStop]=useState(`running`)
-    let radius = 450;
+    let radius = 400;
 
 
   return (

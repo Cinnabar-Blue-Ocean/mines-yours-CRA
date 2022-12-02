@@ -4,6 +4,7 @@ import { getMessages, getReviews, getTrades, orderListings } from './firestoreMe
 import { getListings } from './getListings.js';
 import { auth, googleProvider, db } from "./index.js";
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from './authMethods'
 
 export const DataContext = createContext();
 
@@ -11,12 +12,14 @@ export function useData() {
   return useContext(DataContext);
 }
 
+
 export function DataProvider({ children }) {
   const [listings, setListings] = useState([]);
   const [usersMessages, setUsersMessages] = useState([]);
   const [usersReviews, setUsersReviews] = useState([]);
   const [usersTrades, setUsersTrades] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   // useEffect(() => {
   //   signInWithEmailAndPassword(auth, 'bobby@gmail.com', 'password123');
@@ -24,20 +27,24 @@ export function DataProvider({ children }) {
 
   useEffect(() => {
     const loadData = async () => {
-      const allListings = await orderListings('status');
-      const messages = await getMessages({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
-      const reviews = await getReviews({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
-      const trades = await getTrades({ localId: "w95feptK9GflCePAxXIrtDsubRV2" });
-      setListings(allListings);
-      setUsersMessages(messages);
-      setUsersReviews(reviews);
-      setUsersTrades(trades);
-      setLoading(false);
-      return;
+      if(user&&user.uid){
+        console.log('user',user.uid)
+        const allListings = await orderListings('status');
+        const messages = await getMessages({ localId: user.uid });
+        const reviews = await getReviews({ localId: user.uid });
+        const trades = await getTrades({ localId: user.uid });
+        setListings(allListings);
+        setUsersMessages(messages);
+        setUsersReviews(reviews);
+        setUsersTrades(trades);
+        setLoading(false);
+        return;
+      }
+      return
     };
 
     loadData();
-  }, []);
+  }, [user,user?.uid]);
 
   function loadListings() {
     return listings;
