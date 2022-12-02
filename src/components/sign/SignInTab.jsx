@@ -67,7 +67,7 @@ function SignInTab() {
     if (result.exists()) {
       navigate(`/loading`, { replace: true })
       await setTimeout(fun=>{
-        navigate(`/profile/${user.user.uid}`, { replace: true })
+        navigate(`/ownProfile`, { replace: true })
       }, 600)
       // navigate(`/profile/${user.user.uid}`, { replace: true })
     } else {

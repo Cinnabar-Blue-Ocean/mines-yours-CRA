@@ -10,7 +10,7 @@ import AnimatedPage from '../components/Profile/AnimatedPage'
 const Profile = () => {
   return (
     <Box>
-        <Navbar />
+        {/* <Navbar /> */}
       <AnimatedPage>
         <UserProfile />
       </AnimatedPage>
