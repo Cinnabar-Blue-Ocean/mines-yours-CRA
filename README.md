@@ -26,6 +26,9 @@ A barter marketplace. Connecting the community in order to make a better world
 
 Mines Yours is a barter marketplace seeking to build community, lower waste and build a better world. Sign in with your favorite account, browse listings, message owners, set up trades and get email notifications when your trade is coming to an end. Mines Yours was the final project at the Hack Reactor Advanced Software Immersive. Group members worked in an Agile environment over the course of a week with a client to design, build, and deploy this "Offer Up" or "Facebook Marketplace" clone.
 
+## Demo
+![blueocean-gifcompressed](https://user-images.githubusercontent.com/110439416/205742996-1f58093e-d50a-4c6e-81a4-fe5b6b5f7f96.gif)
+
 ## Technical Overview
 
 Mines Yours is built with React, Express, Node.js, and Firebase.
